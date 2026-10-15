@@ -14,13 +14,13 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
     internal abstract class ViewSetupBase<T> : IDisposable where T : ViewSetupBase<T>, new()
     {
         protected ViewStateRegistry viewStateRegistry;
-        private ViewSetupBase() { }
+        protected ViewSetupBase() { }
 
         public static T NewSetup(ViewStateRegistry viewStateRegistry)
         {
-            HideAll();
-
             var newObject = new T();
+
+            newObject.viewStateRegistry = viewStateRegistry;
 
             newObject.PerformSetup();
 
@@ -38,6 +38,15 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
         public void Dispose()
         {
             viewStateRegistry?.DocumentViewState?.LoadDisplayData();
+        }
+
+        protected static void DisplayAll(IEnumerable<ITxObject> objects)
+        {
+            foreach (var dispObject in objects.OfType<ITxDisplayableObject>()) dispObject.Display();
+        }
+        protected static void BlankAll(IEnumerable<ITxObject> objects)
+        {
+            foreach (var dispObject in objects.OfType<ITxDisplayableObject>()) dispObject.Blank();
         }
     }
 }
