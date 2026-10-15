@@ -17,7 +17,8 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 
         protected static void HideAll()
         {
-            foreach(var item in TxApplication.ActiveDocument.PhysicalRoot.OfType<ITxDisplayableObject>())
+            foreach(var item in TxApplication.ActiveDocument.PhysicalRoot.OfType<ITxDisplayableObject>()
+                .Concat(TxApplication.ActiveDocument.OperationRoot.OfType<ITxDisplayableObject>()))
             {
                 item.Blank();
             }
