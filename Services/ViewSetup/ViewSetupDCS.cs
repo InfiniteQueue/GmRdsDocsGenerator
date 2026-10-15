@@ -24,7 +24,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 
             graphicViewer.ShowContours = true;
 
-            var robot = viewStateRegistry.Categories[ObjCategories.MainRobot].FirstOrDefault();
+            var robot = viewStateRegistry.Categories[ObjCategories.MainRobotEquipments].FirstOrDefault();
 
                 ((ITxDisplayableObject)robot).RestoreColor();
 
@@ -33,7 +33,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
                 ((ITxDisplayableObject)item).Color = GMColours.DcsModel;
             }
 
-            DisplayAll(viewStateRegistry.Categories[ObjCategories.MainRobot]);
+            DisplayAll(viewStateRegistry.Categories[ObjCategories.MainRobotEquipments]);
 
             var allObjectAttachments = Services.SimObjectRetrieval.GetAllAttachmentDescendants((ITxLocatableObject)robot);
             foreach (var item in viewStateRegistry.Categories[ObjCategories.EOAT])

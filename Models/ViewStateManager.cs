@@ -57,9 +57,10 @@ namespace GmRdsDocsGenerator.Models
 
             Categories = new CategoryRegistry();
 
+            var mainRobotEquipment = SimObjectRetrieval.GetRobotEquipment((ITxDisplayableObject)mainObjects.Robot);
             Categories.AssignItems(mainObjects.DcsObjects.OfType<ITxDisplayableObject>(), ObjCategories.MainDcs);
-            Categories.AssignItem((ITxDisplayableObject)mainObjects.Robot, ObjCategories.MainRobot);
-            Categories.AssignItems(objectLists.AllRobots.OfType<ITxDisplayableObject>().Where(x => x != mainObjects.Robot), ObjCategories.OtherRobots);
+            Categories.AssignItem(mainRobotEquipment, ObjCategories.MainRobotEquipments);
+            Categories.AssignItems(objectLists.AllRobotEquipments.OfType<ITxDisplayableObject>().Where(x => x != mainRobotEquipment), ObjCategories.OtherRobotsEquipments);
             Categories.AssignItems(objectLists.AllEOAT.OfType<ITxDisplayableObject>(), ObjCategories.EOAT);
             Categories.AssignItems(objectLists.Fencing.OfType<ITxDisplayableObject>(), ObjCategories.Fencing);
             Categories.AssignItems(objectLists.AllProduct.OfType<ITxDisplayableObject>(), ObjCategories.Product);
