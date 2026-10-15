@@ -42,7 +42,7 @@ namespace GmRdsDocsGenerator.Controls.DataEntryControls
 
         private void btnDebug_Click(object sender, RoutedEventArgs e)
         {
-
+            DebugClasses.DebugMethods.SelectAll();
         }
     }
 }

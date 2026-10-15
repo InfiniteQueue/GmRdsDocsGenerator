@@ -64,5 +64,11 @@ namespace GmRdsDocsGenerator.Services
             Debug.WriteLine($"{allInbuilt.Count()} inbuilt dcs objects found");
             newScan.InbuiltRobotDCS = new TxObjectList<ITxComponent>(allInbuilt);
         }
+        static void GetRobotEquipments(SimObjectScanLists newScan)
+        {
+            var equipments = newScan.AllRobots.Select(x => Services.SimObjectRetrieval.GetRobotEquipment(x)).OfType<ITxComponent>();
+            Debug.WriteLine($"{equipments.Count()} robot equipments found");
+            newScan.AllRobotEquipments = equipments;
+        }
     }
 }

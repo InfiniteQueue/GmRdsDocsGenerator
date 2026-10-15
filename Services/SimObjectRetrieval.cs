@@ -96,7 +96,7 @@ namespace GmRdsDocsGenerator.Services
 
             return kinematicLinksDescendants.Where(obj => StepUpParents(obj).Any(parent => parent == equipment) == false).OfType<ITxComponent>();
         }
-        static ITxProcessModelObject GetRobotEquipment(ITxRobot rob)
+        public static ITxProcessModelObject GetRobotEquipment(ITxRobot rob)
         {
             return StepUpParents(rob).OfType<ITxProcessModelObject>().FirstOrDefault(x => x.PlanningRepresentation.PlanningType == "PmEquipmentInstance");
         }
