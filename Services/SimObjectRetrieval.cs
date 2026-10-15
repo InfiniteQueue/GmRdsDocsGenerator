@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Tecnomatix.Engineering;
 using Tecnomatix.Planning;
 
-namespace GmRdsDocsGenerator
+namespace GmRdsDocsGenerator.Services
 {
     public static class SimObjectRetrieval
     {
