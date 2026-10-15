@@ -13,10 +13,10 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
     /// <summary> Base class for view setups, used to prepare the document for different types of screenshot </summary>
     internal abstract class ViewSetupBase<T> : IDisposable where T : ViewSetupBase<T>, new()
     {
-        protected ViewStateRegistry viewStateRegistry;
+        protected ViewStateManager viewStateRegistry;
         protected ViewSetupBase() { }
 
-        public static T NewSetup(ViewStateRegistry viewStateRegistry)
+        public static T NewSetup(ViewStateManager viewStateRegistry)
         {
             var newObject = new T();
 

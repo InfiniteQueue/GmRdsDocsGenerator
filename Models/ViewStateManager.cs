@@ -10,7 +10,7 @@ using ObjCategories = GmRdsDocsGenerator.Models.CategoryRegistry.ObjCategories;
 
 namespace GmRdsDocsGenerator.Models
 {
-    internal class ViewStateRegistry
+    internal class ViewStateManager
     {
         public TxSnapshot OriginalViewState { get; set; }
         public TxSnapshot DocumentViewState { get; set; }
@@ -33,7 +33,7 @@ namespace GmRdsDocsGenerator.Models
             OverwriteDocumentViewStateWithCurrentView();
         }
 
-        public ViewStateRegistry() { }
+        public ViewStateManager() { }
 
         public void GenerateDefaultDocumentViewState(SimObjectsModel mainObjects)
         {

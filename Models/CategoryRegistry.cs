@@ -37,7 +37,7 @@ namespace GmRdsDocsGenerator.Models
         /// <summary>
         /// The original color of the object cannot be assumed to be blank, so restore the snapshot and recolor all items when an item is removed from a list
         /// </summary>
-        public void UnassignItem(ViewStateRegistry viewStateRegistry, ITxDisplayableObject obj)
+        public void UnassignItem(ViewStateManager viewStateRegistry, ITxDisplayableObject obj)
         {
             var matchingCategories = categoryLists.Where(x => x.Value.Contains(obj));
             if (matchingCategories.Count() == 0) return;

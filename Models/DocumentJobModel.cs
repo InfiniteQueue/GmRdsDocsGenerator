@@ -38,6 +38,6 @@ namespace GmRdsDocsGenerator.Models
 
         public MainDataModel MainData { get; set; } = new MainDataModel();
         public SimObjectsModel SimObjects { get; set; } = new SimObjectsModel();
-        public ViewStateRegistry ViewStates { get; set; } = new ViewStateRegistry();
+        public ViewStateManager ViewStates { get; set; } = new ViewStateManager();
     }
 }

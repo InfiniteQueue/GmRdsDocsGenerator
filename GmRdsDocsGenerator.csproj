@@ -154,7 +154,7 @@
     </Compile>
     <Compile Include="Models\CategoryRegistry.cs" />
     <Compile Include="Models\DocumentJobModel.cs" />
-    <Compile Include="Models\ViewStateRegistry.cs" />
+    <Compile Include="Models\ViewStateManager.cs" />
     <Compile Include="Models\SimObjectScanLists.cs" />
     <Compile Include="Services\BackgroundSetup.cs" />
     <Compile Include="Services\SimObjectCategoryScan.cs" />
