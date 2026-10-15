@@ -1,4 +1,5 @@
 ﻿using GmRdsDocsGenerator.Models;
+using GmRdsDocsGenerator.DebugClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,15 +53,7 @@ namespace GmRdsDocsGenerator.DataEntryControls
 
         private void btnDebug_Click(object sender, RoutedEventArgs e)
         {
-            if (TxApplication.ActiveSelection.GetAllItems().FirstOrDefault() is ITxObject itxObj)
-            {
-                //if (itxObj is ITxDisplayableObject dispObj) dispObj.RestoreColor();
-                if (itxObj is ITxRobot selRobot)
-                {
-                    var grippers = SimObjectRetrieval.GetGrippers(selRobot as ITxObjectCollection);
-                    ;
-                }
-            }
+            DebugMethods.DebugMain();
         }
 
         private void TxObjEditBoxControl_KeyDown(object sender, KeyEventArgs e)

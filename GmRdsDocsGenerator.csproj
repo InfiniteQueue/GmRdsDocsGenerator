@@ -147,6 +147,7 @@
     <Compile Include="DataEntryControls\DocColorsSaveControl.xaml.cs">
       <DependentUpon>DocColorsSaveControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DebugClasses\DebugMethods.cs" />
     <Compile Include="GmRdsCommand.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
