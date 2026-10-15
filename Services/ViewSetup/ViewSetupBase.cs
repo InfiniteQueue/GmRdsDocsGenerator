@@ -35,6 +35,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             }
         }
         protected abstract void PerformSetup();
+        protected abstract void Cleanup();
         public void Dispose()
         {
             viewStateRegistry?.DocumentViewState?.LoadDisplayData();
