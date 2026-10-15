@@ -9,23 +9,11 @@ using Tecnomatix.Engineering;
 
 namespace GmRdsDocsGenerator.Services.ViewSetup
 {
-    //Generics are used here to allow the static function NewSetup to return a correctly typed instance of the overriding subclass
-    /// <summary> Base class for view setups, used to prepare the document for different types of screenshot </summary>
-    internal abstract class ViewSetupBase<T> : IDisposable where T : ViewSetupBase<T>, new()
+    internal abstract class ViewSetupBase : IDisposable
     {
         protected ViewStateManager viewStateRegistry;
         protected ViewSetupBase() { }
 
-        public static T NewSetup(ViewStateManager viewStateRegistry)
-        {
-            var newObject = new T();
-
-            newObject.viewStateRegistry = viewStateRegistry;
-
-            newObject.PerformSetup();
-
-            return newObject;
-        }
 
         protected static void HideAll()
         {
@@ -38,7 +26,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
         protected abstract void Cleanup();
         public void Dispose()
         {
-            viewStateRegistry?.DocumentViewState?.LoadDisplayData();
+            viewStateRegistry?.DocumentViewSnapshot?.LoadDisplayData();
         }
 
         protected static void DisplayAll(IEnumerable<ITxObject> objects)
@@ -48,6 +36,23 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
         protected static void BlankAll(IEnumerable<ITxObject> objects)
         {
             foreach (var dispObject in objects.OfType<ITxDisplayableObject>()) dispObject.Blank();
+        }
+    }
+
+    //Generics are used here to allow the static function NewSetup to return a correctly typed instance of the overriding subclass
+    /// <summary> Base class for view setups, used to prepare the document for different types of screenshot </summary>
+    internal abstract class ViewSetupBase<T> : ViewSetupBase  where T : ViewSetupBase<T>, new()
+    {
+
+        public static T NewSetup(ViewStateManager viewStateRegistry)
+        {
+            var newObject = new T();
+
+            newObject.viewStateRegistry = viewStateRegistry;
+
+            newObject.PerformSetup();
+
+            return newObject;
         }
     }
 }
