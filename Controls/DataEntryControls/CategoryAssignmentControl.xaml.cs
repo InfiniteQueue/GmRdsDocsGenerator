@@ -94,7 +94,8 @@ namespace GmRdsDocsGenerator.Controls.DataEntryControls
 
         private Dictionary<string, CategoryRegistry.ObjCategories?> CategoryNames => new Dictionary<string, CategoryRegistry.ObjCategories?>()
         {
-            {"Main Robot and DCS", CategoryRegistry.ObjCategories.MainRobot },
+            {"Main Robot", CategoryRegistry.ObjCategories.MainRobot },
+            {"Main DCS", CategoryRegistry.ObjCategories.MainDcs },
             {"Robots", CategoryRegistry.ObjCategories.OtherRobots },
             {"EOAT", CategoryRegistry.ObjCategories.EOAT },
             {"Fencing", CategoryRegistry.ObjCategories.Fencing },
