@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GmRdsDocsGenerator.DataEntryControls
+namespace GmRdsDocsGenerator.Controls.DataEntryControls
 {
     /// <summary>
     /// Interaction logic for FieldEntry.xaml

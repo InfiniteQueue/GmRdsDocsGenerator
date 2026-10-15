@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using GmRdsDocsGenerator.Models;
 using static GmRdsDocsGenerator.Statics.SnapshotStatics;
 
-namespace GmRdsDocsGenerator.DataEntryControls
+namespace GmRdsDocsGenerator.Controls.DataEntryControls
 {
     /// <summary>
     /// Interaction logic for ViewSetupControl.xaml

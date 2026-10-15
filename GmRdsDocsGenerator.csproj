@@ -91,31 +91,31 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="DataEntryControls\CategoryAssignmentControl.xaml">
+    <Page Include="Controls\DataEntryControls\CategoryAssignmentControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataEntryControls\DocumentJobControl.xaml">
+    <Page Include="Controls\DataEntryControls\DocumentJobControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataEntryControls\FieldEntry.xaml">
+    <Page Include="Controls\DataEntryControls\FieldEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataEntryControls\MainDataControl.xaml">
+    <Page Include="Controls\DataEntryControls\MainDataControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataEntryControls\SimObjectsControl.xaml">
+    <Page Include="Controls\DataEntryControls\SimObjectsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataEntryControls\TxObjectListPicker.xaml">
+    <Page Include="Controls\DataEntryControls\TxObjectListPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataEntryControls\DocColorsSaveControl.xaml">
+    <Page Include="Controls\DataEntryControls\DocColorsSaveControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -126,25 +126,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\GMColours.cs" />
-    <Compile Include="DataEntryControls\CategoryAssignmentControl.xaml.cs">
+    <Compile Include="Controls\DataEntryControls\CategoryAssignmentControl.xaml.cs">
       <DependentUpon>CategoryAssignmentControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataEntryControls\DocumentJobControl.xaml.cs">
+    <Compile Include="Controls\DataEntryControls\DocumentJobControl.xaml.cs">
       <DependentUpon>DocumentJobControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataEntryControls\FieldEntry.xaml.cs">
+    <Compile Include="Controls\DataEntryControls\FieldEntry.xaml.cs">
       <DependentUpon>FieldEntry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataEntryControls\MainDataControl.xaml.cs">
+    <Compile Include="Controls\DataEntryControls\MainDataControl.xaml.cs">
       <DependentUpon>MainDataControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataEntryControls\SimObjectsControl.xaml.cs">
+    <Compile Include="Controls\DataEntryControls\SimObjectsControl.xaml.cs">
       <DependentUpon>SimObjectsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataEntryControls\TxObjectListPicker.xaml.cs">
+    <Compile Include="Controls\DataEntryControls\TxObjectListPicker.xaml.cs">
       <DependentUpon>TxObjectListPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataEntryControls\DocColorsSaveControl.xaml.cs">
+    <Compile Include="Controls\DataEntryControls\DocColorsSaveControl.xaml.cs">
       <DependentUpon>DocColorsSaveControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DebugClasses\DebugMethods.cs" />
@@ -190,7 +190,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controls\ActionControls\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\CommunityToolkit.Mvvm.8.4.2\build\CommunityToolkit.Mvvm.targets" Condition="Exists('packages\CommunityToolkit.Mvvm.8.4.2\build\CommunityToolkit.Mvvm.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

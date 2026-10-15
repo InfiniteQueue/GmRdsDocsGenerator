@@ -19,7 +19,7 @@ using Tecnomatix.Engineering;
 using Tecnomatix.Engineering.Ui;
 using Tecnomatix.Engineering.Ui.WPF;
 
-namespace GmRdsDocsGenerator.DataEntryControls
+namespace GmRdsDocsGenerator.Controls.DataEntryControls
 {
     /// <summary>
     /// Interaction logic for SimObjectsControl.xaml

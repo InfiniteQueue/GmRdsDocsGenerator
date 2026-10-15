@@ -17,7 +17,7 @@ using GmRdsDocsGenerator.Models;
 using Tecnomatix.Engineering;
 using static GmRdsDocsGenerator.Models.CategoryRegistry;
 
-namespace GmRdsDocsGenerator.DataEntryControls
+namespace GmRdsDocsGenerator.Controls.DataEntryControls
 {
     /// <summary>
     /// Interaction logic for ColouringToolsControl.xaml

@@ -6,7 +6,7 @@ using Tecnomatix.Engineering;
 using Tecnomatix.Engineering.Ui;
 using Tecnomatix.Engineering.Ui.WPF;
 
-namespace GmRdsDocsGenerator.DataEntryControls
+namespace GmRdsDocsGenerator.Controls.DataEntryControls
 {
     /// <summary>
     /// Wraps a TxObjectGridControl so its object list can be bound from XAML, e.g.

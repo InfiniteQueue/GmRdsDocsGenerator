@@ -16,7 +16,7 @@ using GmRdsDocsGenerator.Models;
 using GmRdsDocsGenerator.Services;
 using Tecnomatix.Engineering;
 
-namespace GmRdsDocsGenerator.DataEntryControls
+namespace GmRdsDocsGenerator.Controls.DataEntryControls
 {
     /// <summary>
     /// Interaction logic for DocumentJobControl.xaml

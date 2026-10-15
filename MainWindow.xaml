@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GmRdsDocsGenerator"
         xmlns:ViewModels="clr-namespace:GmRdsDocsGenerator.Models"
-        xmlns:DataEntryControls="clr-namespace:GmRdsDocsGenerator.DataEntryControls"
+        xmlns:DataEntryControls="clr-namespace:GmRdsDocsGenerator.Controls.DataEntryControls"
         mc:Ignorable="d"
         Title="RDS Document Generator" Height="450" Width="800" Topmost="True">
     <Grid>
