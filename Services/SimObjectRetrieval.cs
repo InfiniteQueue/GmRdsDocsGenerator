@@ -54,7 +54,7 @@ namespace GmRdsDocsGenerator.Services
         }
 
         /// <summary> Returns attachments, and attachments of those objects or any of their children recursively </summary>
-        static IEnumerable<ITxObject> GetAllAttachmentDescendants(ITxLocatableObject rootObject)
+        public static IEnumerable<ITxObject> GetAllAttachmentDescendants(ITxLocatableObject rootObject)
         {
             var attachments = rootObject.GetDirectAttachmentDescendants(new TxNoTypeFilter());
             foreach (var attachment in attachments)

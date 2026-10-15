@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GmRdsDocsGenerator.Constants;
 using GmRdsDocsGenerator.Statics;
 using Tecnomatix.Engineering;
 using ObjCategories = GmRdsDocsGenerator.Models.CategoryRegistry.ObjCategories;
@@ -23,8 +24,24 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 
             graphicViewer.ShowContours = true;
 
+            var robot = viewStateRegistry.Categories[ObjCategories.MainRobot].FirstOrDefault();
+
+                ((ITxDisplayableObject)robot).RestoreColor();
+
+            foreach (var item in viewStateRegistry.Categories[ObjCategories.MainDcs])
+            {
+                ((ITxDisplayableObject)item).Color = GMColours.DcsModel;
+            }
+
             DisplayAll(viewStateRegistry.Categories[ObjCategories.MainRobot]);
-            DisplayAll(viewStateRegistry.Categories[ObjCategories.EOAT]);
+
+            var allObjectAttachments = Services.SimObjectRetrieval.GetAllAttachmentDescendants((ITxLocatableObject)robot);
+            foreach (var item in viewStateRegistry.Categories[ObjCategories.EOAT])
+            {
+                if (allObjectAttachments.Contains(item)) ((ITxDisplayableObject)item).Display();
+            }
+
+            SetupDCSDisplay();
         }
 
         protected override void Cleanup()
@@ -32,13 +49,19 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             var graphicViewer = TxApplication.ViewersManager.GraphicViewer;
             graphicViewer.ShowContours = false;
 
+            var manager = TxApplication.CommandsManager;
+            manager.ExecuteCommand("Shaded") ;
+
         }
 
         private void SetupDCSDisplay()
         {
             var dcsObjects = viewStateRegistry.Categories[ObjCategories.MainDcs];
+            var manager = TxApplication.CommandsManager;
 
-            foreach(var item in dcsObjects.OfType<ITxDisplayableObject>())
+            manager.ExecuteCommand("Feature Lines Over Solid");
+
+            foreach (var item in dcsObjects.OfType<ITxDisplayableObject>())
             {
                 item.DisplayMode = TxDisplayMode.Wireframe;
                 item.DisplayMode = TxDisplayMode.Shaded;
