@@ -14,7 +14,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
         protected override void PerformSetup()
         {
             var graphicViewer = TxApplication.ViewersManager.GraphicViewer;
-            viewStateRegistry.DocumentViewState.LoadDisplayData();
+            viewStateRegistry.DocumentViewSnapshot.LoadDisplayData();
             HideAll();
 
             //Reframe on DCS objects

@@ -43,7 +43,7 @@ namespace GmRdsDocsGenerator.Models
             if (matchingCategories.Count() == 0) return;
 
             foreach (var category in matchingCategories) category.Value.Remove(obj);
-            viewStateRegistry.OriginalViewState?.LoadDisplayData();
+            viewStateRegistry.OriginalViewSnapshot?.LoadDisplayData();
             ColorAllItems();
         }
 
@@ -67,8 +67,8 @@ namespace GmRdsDocsGenerator.Models
         public static Dictionary<ObjCategories, TxColor> CategoryColors => new Dictionary<ObjCategories, TxColor>()
         {
             {ObjCategories.MainRobot, GMColours.Blue },
+            {ObjCategories.MainDcs, GMColours.Blue },
             {ObjCategories.Product, GMColours.Blue },
-            {ObjCategories.MainDcs, GMColours.DcsModel },
             {ObjCategories.OtherRobots, GMColours.Gray1 },
             {ObjCategories.EOAT, GMColours.Red },
             {ObjCategories.Fencing, GMColours.Yellow },

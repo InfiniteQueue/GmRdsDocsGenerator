@@ -22,9 +22,9 @@ namespace GmRdsDocsGenerator.Controls.DataEntryControls
     /// <summary>
     /// Interaction logic for ColouringToolsControl.xaml
     /// </summary>
-    public partial class ColouringToolsControl : UserControl
+    public partial class CategoryAssignmentControl : UserControl
     {
-        public ColouringToolsControl()
+        public CategoryAssignmentControl()
         {
             InitializeComponent();
 

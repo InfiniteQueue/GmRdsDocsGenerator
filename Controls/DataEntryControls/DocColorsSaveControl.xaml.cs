@@ -41,7 +41,7 @@ namespace GmRdsDocsGenerator.Controls.DataEntryControls
 
         private void btnRestore_Click(object sender, RoutedEventArgs e)
         {
-            documentJobObject.ViewStates.OriginalViewState?.LoadDisplayData();
+            documentJobObject.ViewStates.OriginalViewSnapshot?.LoadDisplayData();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GmRdsDocsGenerator.Services;
+using GmRdsDocsGenerator.Services.ViewSetup;
 using Tecnomatix.Engineering;
 using ObjCategories = GmRdsDocsGenerator.Models.CategoryRegistry.ObjCategories;
 
@@ -12,8 +13,8 @@ namespace GmRdsDocsGenerator.Models
 {
     internal class ViewStateManager
     {
-        public TxSnapshot OriginalViewState { get; set; }
-        public TxSnapshot DocumentViewState { get; set; }
+        public TxSnapshot OriginalViewSnapshot { get; set; }
+        public TxSnapshot DocumentViewSnapshot { get; set; }
 
         CategoryRegistry _categories;
         public CategoryRegistry Categories
@@ -25,6 +26,17 @@ namespace GmRdsDocsGenerator.Models
                 _categories = value;
                 if (_categories != null) _categories.CollectionChanged += this._categories_CollectionChanged;
 
+            }
+        }
+
+        ViewSetupBase activeView;
+        public ViewSetupBase ActiveView
+        {
+            get => activeView;
+            set
+            {
+                activeView?.Dispose();
+                activeView = value;
             }
         }
 
@@ -54,22 +66,22 @@ namespace GmRdsDocsGenerator.Models
 
             foreach (var item in objectLists.InbuiltRobotDCS.OfType<ITxDisplayableObject>()) item.Blank();
 
-            DocumentViewState = TxApplication.ActiveDocument.PhysicalRoot.CreateSnapshot(new TxSnapshotCreationData("DocumentView"));
+            DocumentViewSnapshot = TxApplication.ActiveDocument.PhysicalRoot.CreateSnapshot(new TxSnapshotCreationData("DocumentView"));
 
         }
         public void EnsureOriginalViewStateSet()
         {
-            if (OriginalViewState == null)
+            if (OriginalViewSnapshot == null)
             {
                 Debug.WriteLine("Recording original view state");
-                OriginalViewState = TxApplication.ActiveDocument.PhysicalRoot.CreateSnapshot(new TxSnapshotCreationData("OriginalView"));
+                OriginalViewSnapshot = TxApplication.ActiveDocument.PhysicalRoot.CreateSnapshot(new TxSnapshotCreationData("OriginalView"));
             }
         }
 
         public void OverwriteDocumentViewStateWithCurrentView()
         {
             Debug.WriteLine("Saving document view snapshot");
-            DocumentViewState = TxApplication.ActiveDocument.PhysicalRoot.CreateSnapshot(new TxSnapshotCreationData("DocumentView"));
+            DocumentViewSnapshot = TxApplication.ActiveDocument.PhysicalRoot.CreateSnapshot(new TxSnapshotCreationData("DocumentView"));
         }
 
         public void AssignObjectCategory(ITxDisplayableObject dispObj, ObjCategories? category)

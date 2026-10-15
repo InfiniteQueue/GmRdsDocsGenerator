@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:DataEntryControls="clr-namespace:GmRdsDocsGenerator.Controls.DataEntryControls"
+             xmlns:ActionControls="clr-namespace:GmRdsDocsGenerator.Controls.ActionControls"
              xmlns:Models="clr-namespace:GmRdsDocsGenerator.Models"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" x:Name="ctrlDocumentJob">
@@ -27,7 +28,10 @@
                 <DataEntryControls:ViewSetupControl HorizontalAlignment="Center" DataContext="{Binding DataContext, ElementName=ctrlDocumentJob}"/>
             </TabItem>
             <TabItem Header="Categories">
-                <DataEntryControls:ColouringToolsControl DataContext="{Binding DataContext, ElementName=ctrlDocumentJob}"/>
+                <DataEntryControls:CategoryAssignmentControl DataContext="{Binding DataContext, ElementName=ctrlDocumentJob}"/>
+            </TabItem>
+            <TabItem Header="Activate Views">
+                <ActionControls:ViewSetupControl DataContext="{Binding ViewStates}"/>
             </TabItem>
         </TabControl>
     </Grid>
