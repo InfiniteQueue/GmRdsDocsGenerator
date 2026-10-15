@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="GmRdsDocsGenerator.DataEntryControls.SimObjectsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GmRdsDocsGenerator.DataEntryControls"
+    xmlns:ViewModels="clr-namespace:GmRdsDocsGenerator.Models"
+             xmlns:tecno="clr-namespace:Tecnomatix.Engineering.Ui.WPF;assembly=Tecnomatix.Engineering.Ui"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <ViewModels:SimObjectsModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.Resources>
+            <Style x:Key="MarginStyle" TargetType="Control">
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style BasedOn="{StaticResource MarginStyle}" TargetType="tecno:TxObjEditBoxControl"/>
+            <Style BasedOn="{StaticResource MarginStyle}" TargetType="tecno:TxObjectGridControl"/>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Robot:" Grid.Row="0"/>
+        <tecno:TxObjEditBoxControl x:Name="ctrlRobotBox" Grid.Column="1" Grid.Row="0" Object="{Binding Robot, Mode=TwoWay}" ListenToPick="True" KeyDown="TxObjEditBoxControl_KeyDown" TypeValid="ctrlRobotBox_TypeValid"/>
+            <Label Content="Gripper:" Grid.Row="1"/>
+        <tecno:TxObjEditBoxControl x:Name="ctrlGripperBox" Grid.Column="1" Grid.Row="1" Object="{Binding Gripper, Mode=TwoWay}" ListenToPick="True" KeyDown="TxObjEditBoxControl_KeyDown" TypeValid="ctrlRobotBox_TypeValid"/>
+        <Label Content="Panels:" Grid.Row="2"/>
+        <local:TxObjectListPicker x:Name="ctrlPanelPicker" Grid.Column="1" Grid.Row="2" Objects="{Binding Panels}" ColumnHeader="Panel" KeyDown="TxObjEditBoxControl_KeyDown"/>
+        <Label Content="Dcs:" Grid.Row="3"/>
+        <local:TxObjectListPicker x:Name="ctrlDcsPicker" Grid.Column="1" Grid.Row="3" Objects="{Binding DcsObjects}" ColumnHeader="Dcs Objects" KeyDown="TxObjEditBoxControl_KeyDown"/>
+        <Button Content="Debug" x:Name="btnDebug" Grid.Row="4" Grid.ColumnSpan="2" Click="btnDebug_Click"/>
+    </Grid>
+</UserControl>

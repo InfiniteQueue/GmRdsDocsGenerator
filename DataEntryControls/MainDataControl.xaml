@@ -1,0 +1,32 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GmRdsDocsGenerator.DataEntryControls"
+    xmlns:ViewModels="clr-namespace:GmRdsDocsGenerator.Models"
+             xmlns:Advanced="clr-namespace:System.Xml.Serialization.Advanced;assembly=System.Xml" x:Class="GmRdsDocsGenerator.DataEntryControls.MainDataControl"
+             mc:Ignorable="d" Height="auto" d:DesignWidth="400" HorizontalAlignment="Center">
+    <UserControl.DataContext>
+        <ViewModels:MainDataModel/>
+    </UserControl.DataContext>
+    <UniformGrid Grid.IsSharedSizeScope="True" Columns="1">
+        <local:FieldEntry Title="Robot Name:" Value="{Binding RobotName}"/>
+        <local:FieldEntry Title="Robot Model:" Value="{Binding RobotModel}"/>
+        <Grid Margin="2.5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Header"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="DCS Required:" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/> 
+            <CheckBox IsChecked="{Binding DCSRequired}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="1"/>
+        </Grid>
+        <local:FieldEntry Title="DCS Version:" Value="{Binding DCSVersion, Mode=TwoWay}"/>
+        <local:FieldEntry Title="Plant Name:" Value="{Binding PlantName, Mode=TwoWay}"/>
+        <local:FieldEntry Title="Supplier Name:" Value="{Binding SupplierName, Mode=TwoWay}"/>
+        <local:FieldEntry Title="Supplier Contact Name:" Value="{Binding SupplierContact, Mode=TwoWay}"/>
+        <local:FieldEntry Title="Supplier Phone:" Value="{Binding SupplierPhone, Mode=TwoWay}"/>
+        <local:FieldEntry Title="Revision Date:" Value="{Binding RevisionDate, Mode=TwoWay, StringFormat=dd/MM/yyyy}"/>
+        <local:FieldEntry Title="Revision Number:" Value="{Binding RevisionNumber, Mode=TwoWay}"/>
+    </UniformGrid>
+</UserControl>

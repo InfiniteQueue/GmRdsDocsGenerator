@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="GmRdsDocsGenerator.DataEntryControls.DocumentJobControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GmRdsDocsGenerator.DataEntryControls"
+             xmlns:Models="clr-namespace:GmRdsDocsGenerator.Models"
+        xmlns:DataEntryControls="clr-namespace:GmRdsDocsGenerator.DataEntryControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="ctrlDocumentJob">
+    <UserControl.DataContext>
+        <Models:DocumentJobModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="btnDebug" Content="Debug" Click="btnDebug_Click" Grid.Row="1"/>
+        <TabControl>
+            <TabItem Header="Sim Objects">
+                <DataEntryControls:SimObjectsControl x:Name="ctrlSimObjects" DataContext="{Binding SimObjects}"/>
+            </TabItem>
+            <TabItem Header="Data">
+                <DataEntryControls:MainDataControl x:Name="ctrlMainData" VerticalAlignment="Top" DataContext="{Binding MainData}"/>
+            </TabItem>
+            <TabItem Header="View Setup">
+                <DataEntryControls:ViewSetupControl HorizontalAlignment="Center" DataContext="{Binding DataContext, ElementName=ctrlDocumentJob}"/>
+            </TabItem>
+            <TabItem Header="Colours">
+                <DataEntryControls:ColouringToolsControl DataContext="{Binding DataContext, ElementName=ctrlDocumentJob}"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>
