@@ -8,6 +8,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Orientation="Vertical">
         <Button Content="DCS View" Click="DCSSetup"/>
+        <Button Content="DCS Top" Click="DcsTop"/>
+        <Button Content="DCS Side" Click="DcsSide"/>
+        <Button Content="DCS Iso" Click="DcsIso"/>
+
         <Button Content="Reset" Click="Reset"/>
     </StackPanel>
 </UserControl>

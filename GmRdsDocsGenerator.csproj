@@ -185,6 +185,9 @@
     <Compile Include="Services\ViewSetup\ViewSetupBase.cs" />
     <Compile Include="Services\ObjectCategoryColouring.cs" />
     <Compile Include="Services\ViewSetup\ViewSetupDCS.cs" />
+    <Compile Include="Services\ViewSetup\ViewSetupDcsIso.cs" />
+    <Compile Include="Services\ViewSetup\ViewSetupDcsSide.cs" />
+    <Compile Include="Services\ViewSetup\ViewSetupDcsTop.cs" />
     <Compile Include="Statics\SnapshotStatics.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

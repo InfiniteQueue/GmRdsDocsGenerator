@@ -68,7 +68,7 @@ namespace GmRdsDocsGenerator.Services
         {
             var equipments = newScan.AllRobots.Select(x => Services.SimObjectRetrieval.GetRobotEquipment(x)).OfType<ITxComponent>();
             Debug.WriteLine($"{equipments.Count()} robot equipments found");
-            newScan.AllRobotEquipments = equipments;
+            newScan.AllRobotEquipments = new TxObjectList<ITxComponent>(equipments.OfType<ITxComponent>());
         }
     }
 }

@@ -41,5 +41,20 @@ namespace GmRdsDocsGenerator.Controls.ActionControls
         {
             StateManager.ActiveView = null;
         }
+
+        private void DcsTop(object sender, RoutedEventArgs e)
+        {
+            StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsTop.NewSetup(StateManager);
+        }
+
+        private void DcsSide(object sender, RoutedEventArgs e)
+        {
+            StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsSide.NewSetup(StateManager);
+        }
+
+        private void DcsIso(object sender, RoutedEventArgs e)
+        {
+            StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsIso.NewSetup(StateManager);
+        }
     }
 }
