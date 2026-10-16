@@ -20,6 +20,9 @@ namespace GmRdsDocsGenerator.Models
         private TxObjectList _eoat = new TxObjectList();
         public TxObjectList EOAT { get => _eoat; set => SetProperty(ref _eoat, value); }
 
+        private ITxComponent _riser;
+        public ITxComponent Riser { get => _riser; set => SetProperty(ref _riser, value); }
+
         private TxObjectList _panels = new TxObjectList();
         public TxObjectList Panels { get => _panels; set => SetProperty(ref _panels, value); }
 

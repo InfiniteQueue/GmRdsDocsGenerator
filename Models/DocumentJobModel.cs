@@ -28,6 +28,8 @@ namespace GmRdsDocsGenerator.Models
                     if (SimDataRetrieval.GetFileName(robot as ITxStorable) is string modelName && !string.IsNullOrWhiteSpace(modelName)) MainData.RobotModel = modelName;
                     ;
 
+                    SimObjects.Riser = SimObjectRetrieval.GetRiser(robot);
+
                     //Fill lists before assigning them, so bound controls receive the complete list when PropertyChanged fires
                     var eoat = new TxObjectList();
                     foreach (var gripper in SimObjectRetrieval.GetGrippers((ITxObjectCollection)robot)) eoat.Add(gripper);

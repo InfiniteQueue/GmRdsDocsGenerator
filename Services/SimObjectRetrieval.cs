@@ -165,6 +165,23 @@ namespace GmRdsDocsGenerator.Services
             return safeZoneCollections.SelectMany(x => x.GetAllDescendants(new TxTypeFilter(typeof(TxGroup))).OfType<TxGroup>());
         }
 
+        /// <summary> The first component under the robot's container whose file path contains "BASE_PLATES" or "RISERS" </summary>
+        public static ITxComponent GetRiser(ITxRobot robot)
+        {
+            var container = GetRobotContainer(robot);
+            if (container == null) return null;
+
+            return container.GetAllDescendants(new TxNoTypeFilter())
+                .OfType<ITxStorable>()
+                .Where(x =>
+                {
+                    var path = SimDataRetrieval.GetFilePath(x);
+                    return path.IndexOf("BASE_PLATES", StringComparison.OrdinalIgnoreCase) >= 0 || path.IndexOf("RISERS", StringComparison.OrdinalIgnoreCase) >= 0;
+                })
+                .OfType<ITxComponent>()
+                .FirstOrDefault();
+        }
+
         static string FirstTwoNameParts(string name)
         {
             return string.Join("_", name.Split('_').Take(2));
