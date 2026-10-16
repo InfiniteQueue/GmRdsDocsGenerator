@@ -17,8 +17,8 @@ namespace GmRdsDocsGenerator.Models
         private ITxRobot _robot;
         public ITxRobot Robot { get => _robot; set => SetProperty(ref _robot, value); }
 
-        private ITxDevice _gripper; //Todo: rename this
-        public ITxDevice EOAT { get => _gripper; set => SetProperty(ref _gripper, value); }
+        private TxObjectList _eoat = new TxObjectList();
+        public TxObjectList EOAT { get => _eoat; set => SetProperty(ref _eoat, value); }
 
         private TxObjectList _panels = new TxObjectList();
         public TxObjectList Panels { get => _panels; set => SetProperty(ref _panels, value); }

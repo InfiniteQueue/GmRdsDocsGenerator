@@ -33,8 +33,8 @@
             </Grid.RowDefinitions>
             <Label Content="Robot:" Grid.Row="0"/>
         <tecno:TxObjEditBoxControl x:Name="ctrlRobotBox" Grid.Column="1" Grid.Row="0" Object="{Binding Robot, Mode=TwoWay}" ListenToPick="True" KeyDown="TxObjEditBoxControl_KeyDown" TypeValid="ctrlRobotBox_TypeValid"/>
-            <Label Content="Gripper:" Grid.Row="1"/>
-        <tecno:TxObjEditBoxControl x:Name="ctrlGripperBox" Grid.Column="1" Grid.Row="1" Object="{Binding EOAT, Mode=TwoWay}" ListenToPick="True" KeyDown="TxObjEditBoxControl_KeyDown" TypeValid="ctrlRobotBox_TypeValid"/>
+            <Label Content="EOAT:" Grid.Row="1"/>
+        <local1:TxObjectListPicker x:Name="ctrlEoatPicker" Grid.Column="1" Grid.Row="1" Objects="{Binding EOAT}" ColumnHeader="EOAT" KeyDown="TxObjEditBoxControl_KeyDown"/>
         <Label Content="Panels:" Grid.Row="2"/>
         <local1:TxObjectListPicker x:Name="ctrlPanelPicker" Grid.Column="1" Grid.Row="2" Objects="{Binding Panels}" ColumnHeader="Panel" KeyDown="TxObjEditBoxControl_KeyDown"/>
         <Label Content="Dcs:" Grid.Row="3"/>
