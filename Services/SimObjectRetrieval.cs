@@ -57,6 +57,19 @@ namespace GmRdsDocsGenerator.Services
         public static IEnumerable<ITxObject> GetAllAttachmentDescendants(ITxLocatableObject rootObject)
         {
             var attachments = rootObject.GetDirectAttachmentDescendants(new TxNoTypeFilter());
+
+            if (rootObject is ITxObjectCollection)
+            {
+
+                foreach (ITxLocatableObject subItem in ((rootObject as ITxObjectCollection)?.GetAllDescendants(new TxNoTypeFilter()).OfType<ITxLocatableObject>()))
+                {
+                    foreach (var subChild in subItem.GetDirectAttachmentDescendants(new TxNoTypeFilter()))
+                    {
+                        yield return subChild;
+                    }
+                }
+            }
+
             foreach (var attachment in attachments)
             {
                 yield return attachment;
@@ -78,7 +91,7 @@ namespace GmRdsDocsGenerator.Services
             }
         }
 
-        static IEnumerable<ITxObject> GetRobotAttachments(ITxObjectCollection sourceRobot)
+        public static IEnumerable<ITxObject> GetRobotAttachments(ITxObjectCollection sourceRobot)
         {
             var kinematicLink = sourceRobot.GetAllDescendants(new TxTypeFilter(typeof(TxKinematicLink))).FirstOrDefault(x => x.Name.ToLower() == "k7") as TxKinematicLink;
             var toolFrame = sourceRobot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))).FirstOrDefault(x => x.Name.ToLower() == "toolframe") as TxFrame;
