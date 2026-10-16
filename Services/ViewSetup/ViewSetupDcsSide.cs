@@ -15,11 +15,12 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             var robotEquip = viewStateRegistry.Categories[Models.CategoryRegistry.ObjCategories.MainRobotEquipments].FirstOrDefault();
             var robot = ((ITxObjectCollection)robotEquip).GetAllDescendants(new TxTypeFilter(typeof(ITxRobot))).FirstOrDefault();
             var robotOrientation = new TxTransformation(((ITxLocatableObject)robot).AbsoluteLocation);
+            var origin = robotOrientation.Translation;
             viewer.CurrentCamera = new TxCamera(
-                robotOrientation.Translation, //Reference point
-                robotOrientation.Translation + robotOrientation.Transform(new TxVector(0, -3000, 0)), //Position
-                new TxVector(0, 0, 1)); //Up vector
-            base.PerformSetup();
+                origin,                                                            //Reference point
+                origin + robotOrientation.RotateAndScale(new TxVector(0, -3000, 0)), //Position: robot's -Y side
+                robotOrientation.RotateAndScale(new TxVector(0, 0, 1)));           //Up vector: robot Z
+            BaseDcsSetup();
         }
     }
 }

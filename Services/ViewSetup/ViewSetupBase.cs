@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using static GmRdsDocsGenerator.Statics.SnapshotStatics;
 using GmRdsDocsGenerator.Models;
 using Tecnomatix.Engineering;
+using System.Diagnostics;
 
 namespace GmRdsDocsGenerator.Services.ViewSetup
 {
@@ -17,9 +18,10 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 
         protected static void HideAll()
         {
-            foreach(var item in TxApplication.ActiveDocument.PhysicalRoot.OfType<ITxDisplayableObject>()
-                .Concat(TxApplication.ActiveDocument.OperationRoot.OfType<ITxDisplayableObject>()))
+            foreach(var item in TxApplication.ActiveDocument.PhysicalRoot.GetDirectDescendants(new TxNoTypeFilter()).OfType<ITxDisplayableObject>()
+                .Concat(TxApplication.ActiveDocument.OperationRoot.GetDirectDescendants(new TxNoTypeFilter()).OfType<ITxDisplayableObject>()))
             {
+                //Debug.WriteLine(item.Name);
                 item.Blank();
             }
         }
@@ -38,14 +40,11 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
         {
             foreach (var dispObject in objects.OfType<ITxDisplayableObject>()) dispObject.Blank();
         }
-    }
 
-    //Generics are used here to allow the static function NewSetup to return a correctly typed instance of the overriding subclass
-    /// <summary> Base class for view setups, used to prepare the document for different types of screenshot </summary>
-    internal abstract class ViewSetupBase<T> : ViewSetupBase  where T : ViewSetupBase<T>, new()
-    {
 
-        public static T NewSetup(ViewStateManager viewStateRegistry)
+
+        //Generics are used here to allow the static function NewSetup to return a correctly typed instance of the overriding subclass
+        public static T NewSetup<T>(ViewStateManager viewStateRegistry) where T : ViewSetupBase, new()
         {
             var newObject = new T();
 
@@ -56,4 +55,5 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             return newObject;
         }
     }
+
 }

@@ -35,7 +35,7 @@ namespace GmRdsDocsGenerator.Models
             get => activeView;
             set
             {
-                activeView?.Dispose();
+                //activeView?.Dispose();
                 activeView = value;
             }
         }

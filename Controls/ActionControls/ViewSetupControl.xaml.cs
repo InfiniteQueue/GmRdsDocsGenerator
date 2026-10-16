@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GmRdsDocsGenerator.Models;
+using GmRdsDocsGenerator.Services.ViewSetup;
 
 namespace GmRdsDocsGenerator.Controls.ActionControls
 {
@@ -34,27 +35,28 @@ namespace GmRdsDocsGenerator.Controls.ActionControls
 
         private void DCSSetup(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = Services.ViewSetup.ViewSetupDCS.NewSetup(StateManager);
+            StateManager.ActiveView = Services.ViewSetup.ViewSetupDCS.NewSetup<ViewSetupDCS>(StateManager);
         }
 
         private void Reset(object sender, RoutedEventArgs e)
         {
+            StateManager.ActiveView?.Dispose();
             StateManager.ActiveView = null;
         }
 
         private void DcsTop(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsTop.NewSetup(StateManager);
+            StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsTop.NewSetup<ViewSetupDcsTop>(StateManager);
         }
 
         private void DcsSide(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsSide.NewSetup(StateManager);
+            StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsSide.NewSetup<ViewSetupDcsSide>(StateManager);
         }
 
         private void DcsIso(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsIso.NewSetup(StateManager);
+            StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsIso.NewSetup<ViewSetupDcsIso>(StateManager);
         }
     }
 }

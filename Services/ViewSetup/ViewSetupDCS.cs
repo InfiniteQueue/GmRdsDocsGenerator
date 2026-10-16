@@ -10,10 +10,12 @@ using ObjCategories = GmRdsDocsGenerator.Models.CategoryRegistry.ObjCategories;
 
 namespace GmRdsDocsGenerator.Services.ViewSetup
 {
-    internal class ViewSetupDCS : ViewSetupBase<ViewSetupDCS>
+    internal class ViewSetupDCS : ViewSetupBase
     {
-        protected override void PerformSetup()
+
+        protected void BaseDcsSetup()
         {
+
             var graphicViewer = TxApplication.ViewersManager.GraphicViewer;
             viewStateRegistry.DocumentViewSnapshot.LoadDisplayData();
             HideAll();
@@ -26,7 +28,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 
             var robot = viewStateRegistry.Categories[ObjCategories.MainRobotEquipments].FirstOrDefault();
 
-                ((ITxDisplayableObject)robot).RestoreColor();
+            ((ITxDisplayableObject)robot).RestoreColor();
 
             foreach (var item in viewStateRegistry.Categories[ObjCategories.MainDcs])
             {
@@ -35,10 +37,10 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 
             DisplayAll(viewStateRegistry.Categories[ObjCategories.MainRobotEquipments]);
 
-            var allObjectAttachments = Services.SimObjectRetrieval.GetAllAttachmentDescendants((ITxLocatableObject)robot);
+            var allRobotEOAT = Services.SimObjectRetrieval.GetRobotAttachments((ITxObjectCollection)robot);
             foreach (var item in viewStateRegistry.Categories[ObjCategories.EOAT])
             {
-                if (allObjectAttachments.Contains(item)) ((ITxDisplayableObject)item).Display();
+                if (allRobotEOAT.Contains(item)) ((ITxDisplayableObject)item).Display();
             }
 
             SetupDCSDisplay();
@@ -50,8 +52,13 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             graphicViewer.ShowContours = false;
 
             var manager = TxApplication.CommandsManager;
-            manager.ExecuteCommand("Shaded") ;
+            //manager.ExecuteCommand("Shaded") ;
 
+        }
+
+        protected override void PerformSetup()
+        {
+            BaseDcsSetup();
         }
 
         private void SetupDCSDisplay()
@@ -59,7 +66,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             var dcsObjects = viewStateRegistry.Categories[ObjCategories.MainDcs];
             var manager = TxApplication.CommandsManager;
 
-            manager.ExecuteCommand("Feature Lines Over Solid");
+            //manager.ExecuteCommand("Feature Lines Over Solid");
 
             foreach (var item in dcsObjects.OfType<ITxDisplayableObject>())
             {
