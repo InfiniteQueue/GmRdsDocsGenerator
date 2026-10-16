@@ -49,11 +49,15 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 
             DisplayAll(viewStateRegistry.Categories[ObjCategories.MainRobotContainers]);
 
-            //RestoreColor on the robot container above also reverts its riser, so reapply the category colour
+            //RestoreColor on the robot container above also reverts its riser and tool changer, so reapply their category colours
             foreach (var riser in viewStateRegistry.Categories[ObjCategories.Risers].OfType<ITxDisplayableObject>())
             {
                 riser.Color = Models.CategoryRegistry.CategoryColors[ObjCategories.Risers];
                 riser.Display();
+            }
+            foreach (var toolChanger in viewStateRegistry.Categories[ObjCategories.MainToolChanger].OfType<ITxDisplayableObject>())
+            {
+                toolChanger.Color = Models.CategoryRegistry.CategoryColors[ObjCategories.MainToolChanger];
             }
 
             var allRobotEOAT = Services.SimObjectRetrieval.GetRobotAttachments((ITxObjectCollection)robot);
