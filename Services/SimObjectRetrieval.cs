@@ -23,16 +23,20 @@ namespace GmRdsDocsGenerator.Services
         }
 
 
-        /// <summary> All attachments that aren't ItxDevice and aren't under a collection named 'dcs' </summary>
+        /// <summary>
+        /// Components that aren't ItxDevice, are under a collection named 'PRODUCT', and are attached to the robot's toolframe or k7
+        /// either directly or through other attachments (e.g. held by the EOAT)
+        /// </summary>
         public static ITxComponent[] GetPanels(ITxObjectCollection sourceRobot)
         {
-            var allAttachments = GetRobotAttachments(sourceRobot);
+            var directAttachments = GetRobotAttachments(sourceRobot).ToList();
+            var allAttachments = directAttachments.Concat(directAttachments.OfType<ITxLocatableObject>().SelectMany(x => GetAllAttachmentDescendants(x)));
 
             IEnumerable<ITxComponent> ItxComponents = allAttachments.OfType<ITxComponent>();
 
-            var filteredItems = ItxComponents.Where(x => !(x is ITxDevice) && StepUpParents(x).Any(y => y.Name.ToLower() == "dcs") == false);
+            var filteredItems = ItxComponents.Where(x => !(x is ITxDevice) && StepUpParents(x).Any(y => y.Name.ToLower() == "product"));
 
-            return filteredItems.ToArray();
+            return filteredItems.Distinct().ToArray();
         }
 
         static IEnumerable<ITxObjectCollection> StepUpParents(ITxObject child, bool includeSelf = false)
@@ -83,9 +87,9 @@ namespace GmRdsDocsGenerator.Services
                 }
                 if (attachment is ITxObjectCollection subCollection)
                 {
-                    foreach(var subChild in subCollection.GetAllDescendants(new TxNoTypeFilter()))
+                    foreach(var subChild in subCollection.GetAllDescendants(new TxNoTypeFilter()).OfType<ITxLocatableObject>()) //Non-locatable children would pass null to the recursive call
                     {
-                        foreach (var item in GetAllAttachmentDescendants(subChild as ITxLocatableObject)) yield return item;
+                        foreach (var item in GetAllAttachmentDescendants(subChild)) yield return item;
                     }
                 }
             }
