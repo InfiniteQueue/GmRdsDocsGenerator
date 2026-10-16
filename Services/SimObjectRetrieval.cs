@@ -106,8 +106,8 @@ namespace GmRdsDocsGenerator.Services
         }
         public static IEnumerable<ITxComponent> GetInbuiltRobotDcs(ITxRobot x)
         {
-            var equipment = GetRobotEquipment(x);
-            if (equipment == null) return new ITxComponent[0];
+            var container = GetRobotContainer(x);
+            if (container == null) return new ITxComponent[0];
             var kinematicLinks = (x as ITxObjectCollection).GetAllDescendants(new TxTypeFilter(typeof(TxKinematicLink))).OfType<TxKinematicLink>().Where(y => y.Name.ToLower() != "k7");
             var kinematicLinksDescendants = kinematicLinks.SelectMany(z => GetAllAttachmentDescendants(z));
 
@@ -116,7 +116,7 @@ namespace GmRdsDocsGenerator.Services
             var toolFrame = (x as ITxObjectCollection).GetAllDescendants(new TxTypeFilter(typeof(TxFrame))).FirstOrDefault(y => y.Name.ToLower() == "toolframe");
 
             return kinematicLinksDescendants
-                .Where(obj => StepUpParents(obj).Any(parent => parent == equipment) == false)
+                .Where(obj => StepUpParents(obj).Any(parent => parent == container) == false)
                 .Where(obj => StepUpAttachmentParents(obj).Any(parent => Equals(parent, k7) || Equals(parent, toolFrame)) == false)
                 .OfType<ITxComponent>();
         }
@@ -135,13 +135,13 @@ namespace GmRdsDocsGenerator.Services
         }
         /// <summary>
         /// All TxGroups under DCS / [robot's collection] / SafeZones, where the robot's collection is a direct child of a collection named "DCS"
-        /// whose first two underscore separated name parts match the robot equipment's, e.g. "QA185_R01" for "QA185_R01_B01.M900..."
+        /// whose first two underscore separated name parts match the robot container's, e.g. "QA185_R01" for "QA185_R01_B01"
         /// </summary>
         public static IEnumerable<TxGroup> GetCpcZones(ITxRobot robot)
         {
-            var equipment = GetRobotEquipment(robot);
-            if (equipment == null) return Enumerable.Empty<TxGroup>();
-            var equipmentPrefix = FirstTwoNameParts(equipment.Name);
+            var container = GetRobotContainer(robot);
+            if (container == null) return Enumerable.Empty<TxGroup>();
+            var containerPrefix = FirstTwoNameParts(container.Name);
 
             var dcsCollections = TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(ITxObjectCollection)))
                 .OfType<ITxObjectCollection>()
@@ -149,7 +149,7 @@ namespace GmRdsDocsGenerator.Services
 
             var robotDcsCollections = dcsCollections
                 .SelectMany(dcs => dcs.GetDirectDescendants(new TxTypeFilter(typeof(ITxObjectCollection))).OfType<ITxObjectCollection>())
-                .Where(x => string.Equals(FirstTwoNameParts(x.Name), equipmentPrefix, StringComparison.OrdinalIgnoreCase));
+                .Where(x => string.Equals(FirstTwoNameParts(x.Name), containerPrefix, StringComparison.OrdinalIgnoreCase));
 
             var safeZoneCollections = robotDcsCollections
                 .SelectMany(x => x.GetAllDescendants(new TxTypeFilter(typeof(ITxObjectCollection))).OfType<ITxObjectCollection>())
@@ -163,9 +163,14 @@ namespace GmRdsDocsGenerator.Services
             return string.Join("_", name.Split('_').Take(2));
         }
 
-        public static ITxProcessModelObject GetRobotEquipment(ITxRobot rob)
+        /// <summary>
+        /// The topmost collection above the robot whose name still contains the first two underscore separated parts of the robot's name,
+        /// e.g. "QA185_R01" for "QA185_R01_B01". Stepping up stops at the first collection whose name doesn't contain them
+        /// </summary>
+        public static ITxObjectCollection GetRobotContainer(ITxRobot rob)
         {
-            return StepUpParents(rob).OfType<ITxProcessModelObject>().FirstOrDefault(x => x.PlanningRepresentation.PlanningType == "PmEquipmentInstance");
+            var robotPrefix = FirstTwoNameParts(rob.Name);
+            return StepUpParents(rob).TakeWhile(x => x.Name.IndexOf(robotPrefix, StringComparison.OrdinalIgnoreCase) >= 0).LastOrDefault();
         }
     }
 }

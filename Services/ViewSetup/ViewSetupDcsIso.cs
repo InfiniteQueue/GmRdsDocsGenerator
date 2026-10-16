@@ -12,8 +12,8 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
         protected override void PerformSetup()
         {
             var viewer = TxApplication.ViewersManager.GraphicViewer;
-            var robotEquip = viewStateRegistry.Categories[Models.CategoryRegistry.ObjCategories.MainRobotEquipments].FirstOrDefault();
-            var robot = ((ITxObjectCollection)robotEquip).GetAllDescendants(new TxTypeFilter(typeof(ITxRobot))).FirstOrDefault();
+            var robotContainer = viewStateRegistry.Categories[Models.CategoryRegistry.ObjCategories.MainRobotContainers].FirstOrDefault();
+            var robot = ((ITxObjectCollection)robotContainer).GetAllDescendants(new TxTypeFilter(typeof(ITxRobot))).FirstOrDefault();
             var robotOrientation = new TxTransformation(((ITxLocatableObject)robot).AbsoluteLocation);
             var origin = robotOrientation.Translation;
             var forwardVector = robotOrientation.RotateAndScale(new TxVector(-1, 1, -1) / Math.Sqrt(3));

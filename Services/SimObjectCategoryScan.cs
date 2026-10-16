@@ -17,7 +17,7 @@ namespace GmRdsDocsGenerator.Services
             var doc = TxApplication.ActiveDocument;
             var root = doc.PhysicalRoot;
             GetRobots(newScan, root);
-            GetRobotEquipments(newScan);
+            GetRobotContainers(newScan);
             GetGrippers(newScan);
             GetPanels(newScan);
             GetDcsObjects(newScan);
@@ -67,11 +67,11 @@ namespace GmRdsDocsGenerator.Services
             Debug.WriteLine($"{allInbuilt.Count()} inbuilt dcs objects found");
             newScan.InbuiltRobotDCS = new TxObjectList<ITxComponent>(allInbuilt);
         }
-        static void GetRobotEquipments(SimObjectScanLists newScan)
+        static void GetRobotContainers(SimObjectScanLists newScan)
         {
-            var equipments = newScan.AllRobots.Select(x => Services.SimObjectRetrieval.GetRobotEquipment(x)).OfType<ITxComponent>();
-            Debug.WriteLine($"{equipments.Count()} robot equipments found");
-            newScan.AllRobotEquipments = new TxObjectList<ITxComponent>(equipments.OfType<ITxComponent>());
+            var containers = newScan.AllRobots.Select(x => Services.SimObjectRetrieval.GetRobotContainer(x)).OfType<ITxObjectCollection>();
+            Debug.WriteLine($"{containers.Count()} robot containers found");
+            newScan.AllRobotContainers = new TxObjectList<ITxObjectCollection>(containers);
         }
     }
 }

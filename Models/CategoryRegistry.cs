@@ -51,9 +51,9 @@ namespace GmRdsDocsGenerator.Models
 
         public enum ObjCategories
         {
-            MainRobotEquipments,
+            MainRobotContainers,
             MainDcs,
-            OtherRobotsEquipments,
+            OtherRobotsContainers,
             EOAT,
             Fencing,
             Product,
@@ -66,9 +66,9 @@ namespace GmRdsDocsGenerator.Models
 
         public static Dictionary<ObjCategories, TxColor> CategoryColors => new Dictionary<ObjCategories, TxColor>()
         {
-            {ObjCategories.MainRobotEquipments, GMColours.Blue },
+            {ObjCategories.MainRobotContainers, GMColours.Blue },
             {ObjCategories.MainDcs, GMColours.Blue },
-            {ObjCategories.OtherRobotsEquipments, GMColours.Gray1 },
+            {ObjCategories.OtherRobotsContainers, GMColours.Gray1 },
             {ObjCategories.EOAT, GMColours.Red },
             {ObjCategories.Fencing, GMColours.Yellow },
             {ObjCategories.Product, GMColours.Blue },
