@@ -29,6 +29,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Label Content="Robot:" Grid.Row="0"/>
         <tecno:TxObjEditBoxControl x:Name="ctrlRobotBox" Grid.Column="1" Grid.Row="0" Object="{Binding Robot, Mode=TwoWay}" ListenToPick="True" KeyDown="TxObjEditBoxControl_KeyDown" TypeValid="ctrlRobotBox_TypeValid"/>
@@ -38,6 +39,8 @@
         <local1:TxObjectListPicker x:Name="ctrlPanelPicker" Grid.Column="1" Grid.Row="2" Objects="{Binding Panels}" ColumnHeader="Panel" KeyDown="TxObjEditBoxControl_KeyDown"/>
         <Label Content="Dcs:" Grid.Row="3"/>
         <local1:TxObjectListPicker x:Name="ctrlDcsPicker" Grid.Column="1" Grid.Row="3" Objects="{Binding DcsObjects}" ColumnHeader="Dcs Objects" KeyDown="TxObjEditBoxControl_KeyDown"/>
-        <Button Content="Debug" x:Name="btnDebug" Grid.Row="4" Grid.ColumnSpan="2" Click="btnDebug_Click"/>
+        <Label Content="CPC Zones:" Grid.Row="4"/>
+        <local1:TxObjectListPicker x:Name="ctrlCpcZonesPicker" Grid.Column="1" Grid.Row="4" Objects="{Binding CpcZones}" ColumnHeader="CPC Zones" KeyDown="TxObjEditBoxControl_KeyDown"/>
+        <Button Content="Debug" x:Name="btnDebug" Grid.Row="5" Grid.ColumnSpan="2" Click="btnDebug_Click"/>
     </Grid>
 </UserControl>

@@ -34,6 +34,10 @@ namespace GmRdsDocsGenerator.Models
                     var dcsObjects = new TxObjectList();
                     foreach (var item in SimObjectRetrieval.GetDCSObjects((ITxObjectCollection)robot)) dcsObjects.Add(item);
                     SimObjects.DcsObjects = dcsObjects;
+
+                    var cpcZones = new TxObjectList();
+                    foreach (var zone in SimObjectRetrieval.GetCpcZones(robot)) cpcZones.Add(zone);
+                    SimObjects.CpcZones = cpcZones;
                 }
             }
         }

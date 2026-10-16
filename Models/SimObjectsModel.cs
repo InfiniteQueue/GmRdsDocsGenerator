@@ -31,6 +31,12 @@ namespace GmRdsDocsGenerator.Models
             set => SetProperty(ref _dcsObjects, value);
         }
 
+        private TxObjectList _cpcZones;
+        public TxObjectList CpcZones
+        {
+            get => _cpcZones;
+            set => SetProperty(ref _cpcZones, value);
+        }
 
     }
 }

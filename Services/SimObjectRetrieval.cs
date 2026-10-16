@@ -129,6 +129,36 @@ namespace GmRdsDocsGenerator.Services
                 current = next;
             }
         }
+        /// <summary>
+        /// All TxGroups under DCS / [robot's collection] / SafeZones, where the robot's collection is a direct child of a collection named "DCS"
+        /// whose first two underscore separated name parts match the robot equipment's, e.g. "QA185_R01" for "QA185_R01_B01.M900..."
+        /// </summary>
+        public static IEnumerable<TxGroup> GetCpcZones(ITxRobot robot)
+        {
+            var equipment = GetRobotEquipment(robot);
+            if (equipment == null) return Enumerable.Empty<TxGroup>();
+            var equipmentPrefix = FirstTwoNameParts(equipment.Name);
+
+            var dcsCollections = TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(ITxObjectCollection)))
+                .OfType<ITxObjectCollection>()
+                .Where(x => x.Name.ToLower() == "dcs");
+
+            var robotDcsCollections = dcsCollections
+                .SelectMany(dcs => dcs.GetDirectDescendants(new TxTypeFilter(typeof(ITxObjectCollection))).OfType<ITxObjectCollection>())
+                .Where(x => string.Equals(FirstTwoNameParts(x.Name), equipmentPrefix, StringComparison.OrdinalIgnoreCase));
+
+            var safeZoneCollections = robotDcsCollections
+                .SelectMany(x => x.GetAllDescendants(new TxTypeFilter(typeof(ITxObjectCollection))).OfType<ITxObjectCollection>())
+                .Where(x => x.Name.ToLower() == "safezones");
+
+            return safeZoneCollections.SelectMany(x => x.GetAllDescendants(new TxTypeFilter(typeof(TxGroup))).OfType<TxGroup>());
+        }
+
+        static string FirstTwoNameParts(string name)
+        {
+            return string.Join("_", name.Split('_').Take(2));
+        }
+
         public static ITxProcessModelObject GetRobotEquipment(ITxRobot rob)
         {
             return StepUpParents(rob).OfType<ITxProcessModelObject>().FirstOrDefault(x => x.PlanningRepresentation.PlanningType == "PmEquipmentInstance");
