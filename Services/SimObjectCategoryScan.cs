@@ -17,6 +17,7 @@ namespace GmRdsDocsGenerator.Services
             var doc = TxApplication.ActiveDocument;
             var root = doc.PhysicalRoot;
             GetRobots(newScan, root);
+            GetRobotEquipments(newScan);
             GetGrippers(newScan);
             GetPanels(newScan);
             GetDcsObjects(newScan);
