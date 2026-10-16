@@ -63,6 +63,9 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             }
 
             SetupDCSDisplay();
+
+            BlankAll(TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))));
+
         }
 
         protected override void Cleanup()
@@ -71,7 +74,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             graphicViewer.ShowContours = false;
 
             var manager = TxApplication.CommandsManager;
-            //manager.ExecuteCommand("Shaded") ;
+            manager.ExecuteCommand("GraphicViewer.ShadedMode");
 
         }
 
@@ -85,7 +88,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             var dcsObjects = viewStateRegistry.Categories[ObjCategories.MainDcs];
             var manager = TxApplication.CommandsManager;
 
-            //manager.ExecuteCommand("Feature Lines Over Solid");
+            manager.ExecuteCommand("GraphicViewer.FLShadedView");
 
             foreach (var item in dcsObjects.OfType<ITxDisplayableObject>())
             {
