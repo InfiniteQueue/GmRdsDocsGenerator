@@ -98,6 +98,7 @@ namespace GmRdsDocsGenerator.Controls.DataEntryControls
             {"Main DCS", CategoryRegistry.ObjCategories.MainDcs },
             {"Robots", CategoryRegistry.ObjCategories.OtherRobotsContainers },
             {"EOAT", CategoryRegistry.ObjCategories.EOAT },
+            {"Risers", CategoryRegistry.ObjCategories.Risers },
             {"Fencing", CategoryRegistry.ObjCategories.Fencing },
             {"Tools Surrounding Robot", CategoryRegistry.ObjCategories.ToolsSurroundingRobot },
             {"CPC Shared Zones",  CategoryRegistry.ObjCategories.CPCSharedZones},

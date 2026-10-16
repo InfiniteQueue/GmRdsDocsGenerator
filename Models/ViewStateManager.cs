@@ -62,6 +62,9 @@ namespace GmRdsDocsGenerator.Models
             Categories.AssignItem((ITxDisplayableObject)mainRobotContainer, ObjCategories.MainRobotContainers);
             Categories.AssignItems(objectLists.AllRobotContainers.OfType<ITxDisplayableObject>().Where(x => x != mainRobotContainer), ObjCategories.OtherRobotsContainers);
             Categories.AssignItems(objectLists.AllEOAT.OfType<ITxDisplayableObject>(), ObjCategories.EOAT);
+            //Risers sit inside robot containers, so they're assigned after them to override the container colour
+            Categories.AssignItems(objectLists.AllRisers.OfType<ITxDisplayableObject>(), ObjCategories.Risers);
+            if (mainObjects.Riser is ITxDisplayableObject mainRiser) Categories.AssignItem(mainRiser, ObjCategories.Risers);
             Categories.AssignItems(objectLists.Fencing.OfType<ITxDisplayableObject>(), ObjCategories.Fencing);
             Categories.AssignItems(objectLists.AllProduct.OfType<ITxDisplayableObject>(), ObjCategories.Product);
 

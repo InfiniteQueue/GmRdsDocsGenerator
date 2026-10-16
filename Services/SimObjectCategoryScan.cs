@@ -18,6 +18,7 @@ namespace GmRdsDocsGenerator.Services
             var root = doc.PhysicalRoot;
             GetRobots(newScan, root);
             GetRobotContainers(newScan);
+            GetRisers(newScan);
             GetGrippers(newScan);
             GetPanels(newScan);
             GetDcsObjects(newScan);
@@ -66,6 +67,12 @@ namespace GmRdsDocsGenerator.Services
             var allInbuilt = newScan.AllRobots.SelectMany(x => SimObjectRetrieval.GetInbuiltRobotDcs(x));
             Debug.WriteLine($"{allInbuilt.Count()} inbuilt dcs objects found");
             newScan.InbuiltRobotDCS = new TxObjectList<ITxComponent>(allInbuilt);
+        }
+        static void GetRisers(SimObjectScanLists newScan)
+        {
+            var risers = newScan.AllRobots.Select(x => SimObjectRetrieval.GetRiser(x)).Where(x => x != null).Distinct();
+            Debug.WriteLine($"{risers.Count()} risers found");
+            newScan.AllRisers = new TxObjectList<ITxComponent>(risers);
         }
         static void GetRobotContainers(SimObjectScanLists newScan)
         {

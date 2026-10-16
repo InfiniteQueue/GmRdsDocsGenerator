@@ -49,6 +49,13 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 
             DisplayAll(viewStateRegistry.Categories[ObjCategories.MainRobotContainers]);
 
+            //RestoreColor on the robot container above also reverts its riser, so reapply the category colour
+            foreach (var riser in viewStateRegistry.Categories[ObjCategories.Risers].OfType<ITxDisplayableObject>())
+            {
+                riser.Color = Models.CategoryRegistry.CategoryColors[ObjCategories.Risers];
+                riser.Display();
+            }
+
             var allRobotEOAT = Services.SimObjectRetrieval.GetRobotAttachments((ITxObjectCollection)robot);
 
             Debug.WriteLine("Attached robot EOAT found:");
