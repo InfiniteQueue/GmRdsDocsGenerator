@@ -70,7 +70,12 @@ namespace GmRdsDocsGenerator.Models
                 ((ITxDisplayableObject)item).Blank();
             }
 
-            foreach (var item in objectLists.InbuiltRobotDCS.OfType<ITxDisplayableObject>()) item.Blank();
+            Debug.WriteLine("Blanking inbuilt dcs Items:");
+            foreach (var item in objectLists.InbuiltRobotDCS.OfType<ITxDisplayableObject>())
+            {
+                Debug.WriteLine(item.Name);
+                item.Blank();
+            }
 
             DocumentViewSnapshot = TxApplication.ActiveDocument.PhysicalRoot.CreateSnapshot(new TxSnapshotCreationData("DocumentView"));
 
