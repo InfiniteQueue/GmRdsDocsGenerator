@@ -28,10 +28,12 @@ namespace GmRdsDocsGenerator.Models
                     if (SimDataRetrieval.GetFileName(robot as ITxStorable) is string modelName && !string.IsNullOrWhiteSpace(modelName)) MainData.RobotModel = modelName;
                     ;
 
-                        if (SimObjectRetrieval.GetGrippers((ITxObjectCollection)robot).FirstOrDefault() is ITxDevice foundGripper) SimObjects.Gripper = foundGripper;
+                        if (SimObjectRetrieval.GetGrippers((ITxObjectCollection)robot).FirstOrDefault() is ITxDevice foundGripper) SimObjects.EOAT = foundGripper;
 
-                    SimObjects.DcsObjects = new TxObjectList(); ;
-                    foreach (var item in SimObjectRetrieval.GetDCSObjects((ITxObjectCollection)robot)) SimObjects.DcsObjects.Add(item);
+                    //Fill lists before assigning them, so bound controls receive the complete list when PropertyChanged fires
+                    var dcsObjects = new TxObjectList();
+                    foreach (var item in SimObjectRetrieval.GetDCSObjects((ITxObjectCollection)robot)) dcsObjects.Add(item);
+                    SimObjects.DcsObjects = dcsObjects;
                 }
             }
         }
