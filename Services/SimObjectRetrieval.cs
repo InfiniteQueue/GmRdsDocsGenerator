@@ -10,16 +10,23 @@ namespace GmRdsDocsGenerator.Services
 {
     public static class SimObjectRetrieval
     {
-        /// <summary> All ItxDevice attachments</summary>
+        /// <summary> All ItxDevice attachments that aren't part of the robot equipment (e.g. dress parts) </summary>
         public static IEnumerable<ITxDevice> GetGrippers(ITxObjectCollection sourceRobot)
         {
             var allAttachments = GetRobotAttachments(sourceRobot);
 
             var robotGroup = sourceRobot.Collection.Collection;
+            var equipment = GetRobotEquipment(sourceRobot);
 
             IEnumerable<ITxDevice> devices = allAttachments.OfType<ITxDevice>();
 
-            return devices.Where(x => StepUpParents(x).Any(y => y == robotGroup));
+            return devices.Where(x => StepUpParents(x).Any(y => y == robotGroup) && StepUpParents(x).Any(y => y == equipment) == false);
+        }
+
+        /// <summary> The first parent of the robot that is a PmEquipmentInstance, or null if there is none </summary>
+        static ITxObjectCollection GetRobotEquipment(ITxObject robot)
+        {
+            return StepUpParents(robot).FirstOrDefault(x => (x as ITxProcessModelObject)?.PlanningRepresentation?.PlanningType == "PmEquipmentInstance");
         }
 
 
