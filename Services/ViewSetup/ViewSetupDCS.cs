@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +22,19 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             HideAll();
 
             //Reframe on DCS objects
+
+            var mainDcsObjects = viewStateRegistry.Categories[ObjCategories.MainDcs];
+
+            Debug.WriteLine($"{mainDcsObjects.Count()} attached dcs objects found");
+            foreach(var item in mainDcsObjects)
+            {
+                Debug.WriteLine(item.Name);
+            }
+
             DisplayAll(viewStateRegistry.Categories[ObjCategories.MainDcs]);
+            TxApplication.RefreshDisplay();
             graphicViewer.ZoomToFit();
+            TxApplication.RefreshDisplay();
 
             graphicViewer.ShowContours = true;
 
@@ -38,6 +50,13 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             DisplayAll(viewStateRegistry.Categories[ObjCategories.MainRobotEquipments]);
 
             var allRobotEOAT = Services.SimObjectRetrieval.GetRobotAttachments((ITxObjectCollection)robot);
+
+            Debug.WriteLine("Attached robot EOAT found:");
+            foreach(var item in allRobotEOAT)
+            {
+                Debug.WriteLine(item.Name);
+            }
+
             foreach (var item in viewStateRegistry.Categories[ObjCategories.EOAT])
             {
                 if (allRobotEOAT.Contains(item)) ((ITxDisplayableObject)item).Display();

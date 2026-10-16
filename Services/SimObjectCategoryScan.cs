@@ -30,6 +30,7 @@ namespace GmRdsDocsGenerator.Services
         {
             var attachedDcsObjects = new TxObjectList<ITxObject>(newScan.AllRobots.SelectMany(x => SimObjectRetrieval.GetDCSObjects((ITxObjectCollection)x)));
             Debug.WriteLine($"{attachedDcsObjects.Count} Attached Dcs objects found");
+            foreach (var item in attachedDcsObjects) Debug.WriteLine(item.Name);
             newScan.AllDCSObjects = attachedDcsObjects;
         }
 
@@ -44,6 +45,7 @@ namespace GmRdsDocsGenerator.Services
         {
             var EOATObjects = new TxObjectList<ITxDevice>(newScan.AllRobots.SelectMany(x => SimObjectRetrieval.GetGrippers((ITxObjectCollection)x)));
             Debug.WriteLine($"{EOATObjects.Count} EOAT objects found");
+            foreach (var item in EOATObjects) Debug.WriteLine(item.Name);
             newScan.AllEOAT = EOATObjects;
         }
 

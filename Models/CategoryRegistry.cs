@@ -68,10 +68,10 @@ namespace GmRdsDocsGenerator.Models
         {
             {ObjCategories.MainRobotEquipments, GMColours.Blue },
             {ObjCategories.MainDcs, GMColours.Blue },
-            {ObjCategories.Product, GMColours.Blue },
             {ObjCategories.OtherRobotsEquipments, GMColours.Gray1 },
             {ObjCategories.EOAT, GMColours.Red },
             {ObjCategories.Fencing, GMColours.Yellow },
+            {ObjCategories.Product, GMColours.Blue },
             {ObjCategories.ToolsSurroundingRobot, GMColours.Black1 },
             {ObjCategories.CPCSharedZones, GMColours.Cyan },
             {ObjCategories.CPCSharedZonesCSC, GMColours.Teal },
