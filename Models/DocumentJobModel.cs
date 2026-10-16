@@ -29,6 +29,7 @@ namespace GmRdsDocsGenerator.Models
                     ;
 
                     SimObjects.Riser = SimObjectRetrieval.GetRiser(robot);
+                    SimObjects.ToolChanger = SimObjectRetrieval.GetToolChanger((ITxObjectCollection)robot);
 
                     //Fill lists before assigning them, so bound controls receive the complete list when PropertyChanged fires
                     var eoat = new TxObjectList();

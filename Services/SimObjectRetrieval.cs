@@ -165,6 +165,21 @@ namespace GmRdsDocsGenerator.Services
             return safeZoneCollections.SelectMany(x => x.GetAllDescendants(new TxTypeFilter(typeof(TxGroup))).OfType<TxGroup>());
         }
 
+        /// <summary> The first component attached to the robot's k7 or toolframe, directly or through other attachments, whose file path contains "TOOLCHANGERS" </summary>
+        public static ITxComponent GetToolChanger(ITxObjectCollection sourceRobot)
+        {
+            var kinematicLink = sourceRobot.GetAllDescendants(new TxTypeFilter(typeof(TxKinematicLink))).FirstOrDefault(x => x.Name.ToLower() == "k7") as ITxLocatableObject;
+            var toolFrame = sourceRobot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))).FirstOrDefault(x => x.Name.ToLower() == "toolframe") as ITxLocatableObject;
+
+            return new[] { kinematicLink, toolFrame }
+                .Where(x => x != null)
+                .SelectMany(x => GetAllAttachmentDescendants(x))
+                .OfType<ITxStorable>()
+                .Where(x => SimDataRetrieval.GetFilePath(x).IndexOf("TOOLCHANGERS", StringComparison.OrdinalIgnoreCase) >= 0)
+                .OfType<ITxComponent>()
+                .FirstOrDefault();
+        }
+
         /// <summary> The first component under the robot's container whose file path contains "BASE_PLATES" or "RISERS" </summary>
         public static ITxComponent GetRiser(ITxRobot robot)
         {

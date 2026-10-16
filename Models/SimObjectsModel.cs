@@ -23,6 +23,9 @@ namespace GmRdsDocsGenerator.Models
         private ITxComponent _riser;
         public ITxComponent Riser { get => _riser; set => SetProperty(ref _riser, value); }
 
+        private ITxComponent _toolChanger;
+        public ITxComponent ToolChanger { get => _toolChanger; set => SetProperty(ref _toolChanger, value); }
+
         private TxObjectList _panels = new TxObjectList();
         public TxObjectList Panels { get => _panels; set => SetProperty(ref _panels, value); }
 
