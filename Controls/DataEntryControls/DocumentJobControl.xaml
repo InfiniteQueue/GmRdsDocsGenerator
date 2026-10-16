@@ -6,11 +6,16 @@
              xmlns:DataEntryControls="clr-namespace:GmRdsDocsGenerator.Controls.DataEntryControls"
              xmlns:ActionControls="clr-namespace:GmRdsDocsGenerator.Controls.ActionControls"
              xmlns:Models="clr-namespace:GmRdsDocsGenerator.Models"
-             mc:Ignorable="d" 
+             xmlns:DebugClasses="clr-namespace:GmRdsDocsGenerator.DebugClasses"
+             xmlns:diag="clr-namespace:System.Diagnostics;assembly=mscorlib"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" x:Name="ctrlDocumentJob">
     <UserControl.DataContext>
         <Models:DocumentJobModel/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -32,6 +37,10 @@
             </TabItem>
             <TabItem Header="Activate Views">
                 <ActionControls:ViewSetupControl DataContext="{Binding ViewStates}"/>
+            </TabItem>
+            <!--Only shown when a debugger is attached; checked once when the control loads-->
+            <TabItem Header="Debug Categories" Visibility="{Binding Source={x:Static diag:Debugger.IsAttached}, Converter={StaticResource BoolToVisibility}}">
+                <DebugClasses:DebugCategoryViewControl DataContext="{Binding DataContext, ElementName=ctrlDocumentJob}"/>
             </TabItem>
         </TabControl>
     </Grid>

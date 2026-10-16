@@ -123,6 +123,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DebugClasses\DebugCategoryViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -153,6 +157,9 @@
     </Compile>
     <Compile Include="Controls\DataEntryControls\DocColorsSaveControl.xaml.cs">
       <DependentUpon>DocColorsSaveControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DebugClasses\DebugCategoryViewControl.xaml.cs">
+      <DependentUpon>DebugCategoryViewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DebugClasses\DebugMethods.cs" />
     <Compile Include="GmRdsCommand.cs" />
