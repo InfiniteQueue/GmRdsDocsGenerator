@@ -30,13 +30,15 @@ namespace GmRdsDocsGenerator.Models
         }
 
         ViewSetupBase activeView;
+        /// <summary> Disposes the previous view, then sets up the assigned one. Assign null to return to the document view </summary>
         public ViewSetupBase ActiveView
         {
             get => activeView;
             set
             {
-                //activeView?.Dispose();
+                activeView?.Dispose();
                 activeView = value;
+                activeView?.Setup();
             }
         }
 

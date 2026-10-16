@@ -40,8 +40,7 @@ namespace GmRdsDocsGenerator.Controls.ActionControls
 
         private void Reset(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView?.Dispose();
-            StateManager.ActiveView = null;
+            StateManager.ActiveView = null; //Disposes the previous view
         }
 
         private void DcsTop(object sender, RoutedEventArgs e)

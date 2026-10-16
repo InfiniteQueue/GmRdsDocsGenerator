@@ -43,14 +43,19 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 
 
 
+        /// <summary> Applies this view to the document. Called by ViewStateManager.ActiveView after the previous view is disposed </summary>
+        public void Setup()
+        {
+            PerformSetup();
+        }
+
         //Generics are used here to allow the static function NewSetup to return a correctly typed instance of the overriding subclass
+        /// <summary> Creates the view without applying it; call Setup, or assign it to ViewStateManager.ActiveView, to apply it </summary>
         public static T NewSetup<T>(ViewStateManager viewStateRegistry) where T : ViewSetupBase, new()
         {
             var newObject = new T();
 
             newObject.viewStateRegistry = viewStateRegistry;
-
-            newObject.PerformSetup();
 
             return newObject;
         }
