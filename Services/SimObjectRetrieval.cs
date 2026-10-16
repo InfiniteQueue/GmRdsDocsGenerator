@@ -107,7 +107,27 @@ namespace GmRdsDocsGenerator.Services
             var kinematicLinks = (x as ITxObjectCollection).GetAllDescendants(new TxTypeFilter(typeof(TxKinematicLink))).OfType<TxKinematicLink>().Where(y => y.Name.ToLower() != "k7");
             var kinematicLinksDescendants = kinematicLinks.SelectMany(z => GetAllAttachmentDescendants(z));
 
-            return kinematicLinksDescendants.Where(obj => StepUpParents(obj).Any(parent => parent == equipment) == false).OfType<ITxComponent>();
+            //Links are attached to each other (k6 -> k7), so the search above also reaches k7 and the EOAT on its toolframe. Remove anything mounted there
+            var k7 = (x as ITxObjectCollection).GetAllDescendants(new TxTypeFilter(typeof(TxKinematicLink))).FirstOrDefault(y => y.Name.ToLower() == "k7");
+            var toolFrame = (x as ITxObjectCollection).GetAllDescendants(new TxTypeFilter(typeof(TxFrame))).FirstOrDefault(y => y.Name.ToLower() == "toolframe");
+
+            return kinematicLinksDescendants
+                .Where(obj => StepUpParents(obj).Any(parent => parent == equipment) == false)
+                .Where(obj => StepUpAttachmentParents(obj).Any(parent => Equals(parent, k7) || Equals(parent, toolFrame)) == false)
+                .OfType<ITxComponent>();
+        }
+
+        /// <summary> Steps up through each object's AttachmentParent, or its Collection when it has no attachment parent </summary>
+        static IEnumerable<ITxObject> StepUpAttachmentParents(ITxObject child)
+        {
+            var current = child;
+            for (int depth = 0; depth < 1000; depth++) //Depth limit guards against an attachment loop
+            {
+                var next = (current as ITxLocatableObject)?.AttachmentParent ?? (ITxObject)current.Collection;
+                if (next == null || Equals(next, current)) yield break; //The root's Collection is itself
+                yield return next;
+                current = next;
+            }
         }
         public static ITxProcessModelObject GetRobotEquipment(ITxRobot rob)
         {
