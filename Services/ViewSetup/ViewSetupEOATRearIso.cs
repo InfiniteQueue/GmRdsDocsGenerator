@@ -23,8 +23,9 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             HideAll();
 
             var robotEquipment = viewStateRegistry.Categories[Models.CategoryRegistry.ObjCategories.MainRobotContainers].FirstOrDefault();
-            var gripper = SimObjectRetrieval.GetEOAT((ITxObjectCollection)robotEquipment).FirstOrDefault();
-            ((ITxDisplayableObject)gripper).Display();
+
+            DisplayAll(SimObjectRetrieval.GetEOAT((ITxObjectCollection)robotEquipment));
+
 
             BlankAll(TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))));
             viewer.ZoomToFit();

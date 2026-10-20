@@ -34,8 +34,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             disp.Display();
             disp.RestoreColor();
 
-            var gripper = SimObjectRetrieval.GetEOAT((ITxObjectCollection)robotEquipment).FirstOrDefault();
-            ((ITxDisplayableObject)gripper).Display();
+            DisplayAll(SimObjectRetrieval.GetEOAT((ITxObjectCollection)robotEquipment));
 
             BlankAll(TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))));
             HideCables();
