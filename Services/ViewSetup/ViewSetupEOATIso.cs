@@ -38,6 +38,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             ((ITxDisplayableObject)gripper).Display();
 
             BlankAll(TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))));
+            HideCables();
 
             viewer.ZoomToFit();
 

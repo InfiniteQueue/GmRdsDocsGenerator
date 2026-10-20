@@ -65,6 +65,14 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
         {
             viewStateRegistry.Categories.ApplyCategoryColor(category);
         }
+
+        protected void HideCables()
+        {
+            foreach (var item in TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxCable))).OfType<TxCable>())
+            {
+                item.Blank();
+            }
+        }
     }
 
 }

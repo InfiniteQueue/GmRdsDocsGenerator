@@ -34,6 +34,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             disp.RestoreColor();
 
             BlankAll(TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))));
+            HideCables();
 
             var manager = TxApplication.CommandsManager;
             manager.ExecuteCommand("GraphicViewer.FLShadedView");

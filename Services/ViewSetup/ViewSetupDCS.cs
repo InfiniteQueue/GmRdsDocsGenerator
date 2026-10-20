@@ -81,6 +81,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             SetupDCSDisplay();
 
             BlankAll(TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))));
+            HideCables();
 
         }
 
