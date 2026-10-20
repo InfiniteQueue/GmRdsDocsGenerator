@@ -112,6 +112,12 @@ namespace GmRdsDocsGenerator.Models
             }
         }
 
+        public void ApplyCategoryColor(ObjCategories category)
+        {
+            var color = CategoryColors[category];
+            foreach (var item in categoryLists[category]) item.Color = color;        
+        }
+
         public event NotifyCollectionChangedEventHandler CollectionChanged;
     }
 }
