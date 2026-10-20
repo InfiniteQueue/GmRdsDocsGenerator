@@ -57,5 +57,10 @@ namespace GmRdsDocsGenerator.Controls.ActionControls
         {
             StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsIso.NewSetup<ViewSetupDcsIso>(StateManager);
         }
+
+        private void EOATIso(object sender, RoutedEventArgs e)
+        {
+            StateManager.ActiveView = Services.ViewSetup.ViewSetupEOATIso.NewSetup<ViewSetupEOATIso>(StateManager);
+        }
     }
 }
