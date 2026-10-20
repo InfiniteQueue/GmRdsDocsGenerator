@@ -60,6 +60,10 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 
             return newObject;
         }
+        protected void RecolorCategory(CategoryRegistry.ObjCategories category)
+        {
+            viewStateRegistry.Categories.ApplyCategoryColor(category);
+        }
     }
 
 }
