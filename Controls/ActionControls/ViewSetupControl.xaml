@@ -12,6 +12,9 @@
         <Button Content="DCS Side" Click="DcsSide"/>
         <Button Content="DCS Iso" Click="DcsIso"/>
         <Button Content="EOAT Iso" Click="EOATIso"/>
+        <Button Content="EOAT Rear Iso" Click="EOATRearIso"/>
+        <Button Content="EOAT Index" Click="EOATIndex"/>
+        <Button Content="Toolchanger" Click="ToolChanger"/>
 
         <Button Content="Reset" Click="Reset"/>
     </StackPanel>

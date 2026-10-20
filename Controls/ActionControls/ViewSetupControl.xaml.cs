@@ -35,7 +35,7 @@ namespace GmRdsDocsGenerator.Controls.ActionControls
 
         private void DCSSetup(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = Services.ViewSetup.ViewSetupDCS.NewSetup<ViewSetupDCS>(StateManager);
+            StateManager.ActiveView = ViewSetupDCS.NewSetup<ViewSetupDCS>(StateManager);
         }
 
         private void Reset(object sender, RoutedEventArgs e)
@@ -45,22 +45,41 @@ namespace GmRdsDocsGenerator.Controls.ActionControls
 
         private void DcsTop(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsTop.NewSetup<ViewSetupDcsTop>(StateManager);
+            StateManager.ActiveView = ViewSetupDcsTop.NewSetup<ViewSetupDcsTop>(StateManager);
         }
 
         private void DcsSide(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsSide.NewSetup<ViewSetupDcsSide>(StateManager);
+            StateManager.ActiveView = ViewSetupDcsSide.NewSetup<ViewSetupDcsSide>(StateManager);
         }
 
         private void DcsIso(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = Services.ViewSetup.ViewSetupDcsIso.NewSetup<ViewSetupDcsIso>(StateManager);
+            StateManager.ActiveView = ViewSetupDcsIso.NewSetup<ViewSetupDcsIso>(StateManager);
         }
 
         private void EOATIso(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = Services.ViewSetup.ViewSetupEOATIso.NewSetup<ViewSetupEOATIso>(StateManager);
+            StateManager.ActiveView = ViewSetupEOATIso.NewSetup<ViewSetupEOATIso>(StateManager);
+        }
+
+        private void EOATRearIso(object sender, RoutedEventArgs e)
+        {
+            StateManager.ActiveView = ViewSetupEOATRearIso.NewSetup<ViewSetupEOATRearIso>(StateManager);
+
+        }
+
+        private void ToolChanger(object sender, RoutedEventArgs e)
+        {
+            StateManager.ActiveView = ViewSetupToolchanger.NewSetup<ViewSetupToolchanger>(StateManager);
+        }
+
+        private void EOATIndex(object sender, RoutedEventArgs e)
+        {
+            var newSetup = ViewSetupEOATIndividual.NewSetup<ViewSetupEOATIndividual>(StateManager);
+            newSetup.EOATIndex = 0;
+            StateManager.ActiveView = newSetup;
+
         }
     }
 }
