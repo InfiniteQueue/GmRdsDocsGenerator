@@ -10,7 +10,8 @@ namespace GmRdsDocsGenerator.Services
 {
     public static class SimObjectRetrieval
     {
-        /// <summary> All ItxDevice attachments that aren't part of the robot equipment (e.g. dress parts) </summary>
+        /// <summary> All ItxDevice attachments that aren't part of the robot equipment (e.g. dress parts).  
+        /// Should allow equipments as well as the robot itself</summary>
         public static IEnumerable<ITxDevice> GetEOAT(ITxObjectCollection sourceRobot)
         {
             var allAttachments = GetRobotAttachments(sourceRobot);
@@ -26,7 +27,7 @@ namespace GmRdsDocsGenerator.Services
         /// <summary> The first parent of the robot that is a PmEquipmentInstance, or null if there is none </summary>
         static ITxObjectCollection GetRobotEquipment(ITxObject robot)
         {
-            return StepUpParents(robot).FirstOrDefault(x => (x as ITxProcessModelObject)?.PlanningRepresentation?.PlanningType == "PmEquipmentInstance");
+            return StepUpParents(robot, true).FirstOrDefault(x => (x as ITxProcessModelObject)?.PlanningRepresentation?.PlanningType == "PmEquipmentInstance");
         }
 
 
