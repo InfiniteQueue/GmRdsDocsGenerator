@@ -170,15 +170,22 @@ namespace GmRdsDocsGenerator.Services
         public static ITxComponent GetToolChanger(ITxObjectCollection sourceRobot)
         {
             var kinematicLink = sourceRobot.GetAllDescendants(new TxTypeFilter(typeof(TxKinematicLink))).FirstOrDefault(x => x.Name.ToLower() == "k7") as ITxLocatableObject;
+
             var toolFrame = sourceRobot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))).FirstOrDefault(x => x.Name.ToLower() == "toolframe") as ITxLocatableObject;
 
-            return new[] { kinematicLink, toolFrame }
+            var toolChangers = new[] { kinematicLink, toolFrame }
                 .Where(x => x != null)
                 .SelectMany(x => GetAllAttachmentDescendants(x))
                 .OfType<ITxStorable>()
                 .Where(x => SimDataRetrieval.GetFilePath(x).IndexOf("TOOLCHANGERS", StringComparison.OrdinalIgnoreCase) >= 0)
-                .OfType<ITxComponent>()
-                .FirstOrDefault();
+                .OfType<ITxComponent>();
+
+            var robotSideToolChangers = toolChangers.Where(x => ((ITxObjectCollection)x).GetDirectDescendants(new TxTypeFilter(typeof(TxFrame))).Count > 1);
+
+            if (robotSideToolChangers.Count() == 0) return robotSideToolChangers.FirstOrDefault();
+
+            else return robotSideToolChangers.FirstOrDefault(x => ((ITxObjectCollection)x).GetDirectDescendants(new TxTypeFilter(typeof(TxFrame))).Any(y => y.Name.ToLower().Contains("pin")));
+
         }
 
         /// <summary> The first component under the robot's container whose file path contains "BASE_PLATES" or "RISERS" </summary>
