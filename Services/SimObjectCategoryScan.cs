@@ -44,7 +44,7 @@ namespace GmRdsDocsGenerator.Services
 
         private static void GetGrippers(SimObjectScanLists newScan)
         {
-            var EOATObjects = new TxObjectList<ITxDevice>(newScan.AllRobots.SelectMany(x => SimObjectRetrieval.GetGrippers((ITxObjectCollection)x)));
+            var EOATObjects = new TxObjectList<ITxDevice>(newScan.AllRobots.SelectMany(x => SimObjectRetrieval.GetEOAT((ITxObjectCollection)x)));
             Debug.WriteLine($"{EOATObjects.Count} EOAT objects found");
             foreach (var item in EOATObjects) Debug.WriteLine(item.Name);
             newScan.AllEOAT = EOATObjects;

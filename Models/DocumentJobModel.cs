@@ -33,7 +33,7 @@ namespace GmRdsDocsGenerator.Models
 
                     //Fill lists before assigning them, so bound controls receive the complete list when PropertyChanged fires
                     var eoat = new TxObjectList();
-                    foreach (var gripper in SimObjectRetrieval.GetGrippers((ITxObjectCollection)robot)) eoat.Add(gripper);
+                    foreach (var gripper in SimObjectRetrieval.GetEOAT((ITxObjectCollection)robot)) eoat.Add(gripper);
                     SimObjects.EOAT = eoat;
 
                     var dcsObjects = new TxObjectList();

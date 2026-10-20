@@ -21,6 +21,11 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             viewStateRegistry.DocumentViewSnapshot.LoadDisplayData();
             HideAll();
 
+            var robot = ((ITxObjectCollection)viewStateRegistry.Categories[ObjCategories.MainRobotContainers].FirstOrDefault()).GetAllDescendants(new TxTypeFilter(typeof(TxRobot))).OfType<TxRobot>().FirstOrDefault();
+            var homePose = (TxPose)robot.PoseList.FirstOrDefault(x => x.Name.ToLower() == "home");
+            robot.CurrentPose = homePose.PoseData;
+            ;
+
             //Reframe on DCS objects
 
             var mainDcsObjects = viewStateRegistry.Categories[ObjCategories.MainDcs];
@@ -38,9 +43,9 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 
             graphicViewer.ShowContours = true;
 
-            var robot = viewStateRegistry.Categories[ObjCategories.MainRobotContainers].FirstOrDefault();
+            var robotContainer = viewStateRegistry.Categories[ObjCategories.MainRobotContainers].FirstOrDefault();
 
-            ((ITxDisplayableObject)robot).RestoreColor();
+            ((ITxDisplayableObject)robotContainer).RestoreColor();
 
             foreach (var item in viewStateRegistry.Categories[ObjCategories.MainDcs])
             {
@@ -50,10 +55,10 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             DisplayAll(viewStateRegistry.Categories[ObjCategories.MainRobotContainers]);
 
             //RestoreColor on the robot container above also reverts its riser and tool changer, so reapply their category colours
+            //Only the main robot's riser is displayed, as part of its container; other robots' risers stay hidden
             foreach (var riser in viewStateRegistry.Categories[ObjCategories.Risers].OfType<ITxDisplayableObject>())
             {
                 riser.Color = Models.CategoryRegistry.CategoryColors[ObjCategories.Risers];
-                riser.Display();
             }
             foreach (var toolChanger in viewStateRegistry.Categories[ObjCategories.MainToolChanger].OfType<ITxDisplayableObject>())
             {

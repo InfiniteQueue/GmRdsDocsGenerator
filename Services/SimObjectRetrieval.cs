@@ -11,7 +11,7 @@ namespace GmRdsDocsGenerator.Services
     public static class SimObjectRetrieval
     {
         /// <summary> All ItxDevice attachments that aren't part of the robot equipment (e.g. dress parts) </summary>
-        public static IEnumerable<ITxDevice> GetGrippers(ITxObjectCollection sourceRobot)
+        public static IEnumerable<ITxDevice> GetEOAT(ITxObjectCollection sourceRobot)
         {
             var allAttachments = GetRobotAttachments(sourceRobot);
 
