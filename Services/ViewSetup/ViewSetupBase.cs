@@ -35,6 +35,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
         protected static void DisplayAll(IEnumerable<ITxObject> objects)
         {
             foreach (var dispObject in objects.OfType<ITxDisplayableObject>()) dispObject.Display();
+            BlankAll(TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))));
         }
         protected static void BlankAll(IEnumerable<ITxObject> objects)
         {
