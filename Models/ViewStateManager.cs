@@ -73,6 +73,8 @@ namespace GmRdsDocsGenerator.Models
             Categories.AssignItems(objectLists.Fencing.OfType<ITxDisplayableObject>(), ObjCategories.Fencing);
             Categories.AssignItems(objectLists.AllProduct.OfType<ITxDisplayableObject>(), ObjCategories.Product);
 
+            foreach (var item in TxApplication.ActiveDocument.OperationRoot.GetDirectDescendants(new TxTypeFilter(typeof(ITxDisplayableObject))).OfType<ITxDisplayableObject>()) item.Blank();
+
             foreach (var item in TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))))
             {
                 ((ITxDisplayableObject)item).Blank();
