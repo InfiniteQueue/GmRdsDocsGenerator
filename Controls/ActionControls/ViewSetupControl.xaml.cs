@@ -81,5 +81,10 @@ namespace GmRdsDocsGenerator.Controls.ActionControls
             StateManager.ActiveView = newSetup;
 
         }
+
+        private void RestrictedSpaceEnvelope(object sender, RoutedEventArgs e)
+        {
+            StateManager.ActiveView = ViewSetupRestrictedSpaceEnvelope.NewSetup<ViewSetupRestrictedSpaceEnvelope>(StateManager);
+        }
     }
 }

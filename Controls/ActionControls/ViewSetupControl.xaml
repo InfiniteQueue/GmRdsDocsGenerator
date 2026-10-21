@@ -15,6 +15,7 @@
         <Button Content="EOAT Rear Iso" Click="EOATRearIso"/>
         <Button Content="EOAT Index" Click="EOATIndex"/>
         <Button Content="Toolchanger" Click="ToolChanger"/>
+        <Button Content="Restricted Space Envelope" Click="RestrictedSpaceEnvelope"/>
 
         <Button Content="Reset" Click="Reset"/>
     </StackPanel>
