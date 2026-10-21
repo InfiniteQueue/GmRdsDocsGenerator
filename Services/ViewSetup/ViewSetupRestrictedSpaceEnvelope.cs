@@ -37,7 +37,12 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             DisplayAll(viewStateRegistry.Categories[ObjCategories.MainRobotContainers]);
             DisplayAll(viewStateRegistry.Categories[ObjCategories.Fencing]);
 
+            foreach (var item in viewStateRegistry.Categories[ObjCategories.MainRobotContainers]) ((ITxDisplayableObject)item).RestoreColor();
+            viewStateRegistry.Categories.ApplyCategoryColor(ObjCategories.EOAT);
+            viewStateRegistry.Categories.ApplyCategoryColor(ObjCategories.Risers);
+
             ColorOtherRobotsGrey();
+            HideCables();
 
         }
 
