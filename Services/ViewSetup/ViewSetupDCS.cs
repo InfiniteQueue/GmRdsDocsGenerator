@@ -60,9 +60,9 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             {
                 riser.Color = Models.CategoryRegistry.CategoryColors[ObjCategories.Risers];
             }
-            foreach (var toolChanger in viewStateRegistry.Categories[ObjCategories.MainToolChanger].OfType<ITxDisplayableObject>())
+            foreach (var toolChanger in viewStateRegistry.Categories[ObjCategories.MainRobotToolChanger].OfType<ITxDisplayableObject>())
             {
-                toolChanger.Color = Models.CategoryRegistry.CategoryColors[ObjCategories.MainToolChanger];
+                toolChanger.Color = Models.CategoryRegistry.CategoryColors[ObjCategories.MainRobotToolChanger];
             }
 
             var allRobotEOAT = Services.SimObjectRetrieval.GetRobotAttachments((ITxObjectCollection)robot);

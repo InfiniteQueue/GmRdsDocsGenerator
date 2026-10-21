@@ -27,7 +27,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             OrientCameraIso(viewer, robot);
 
 
-            var toolchanger = viewStateRegistry.Categories[ObjCategories.MainToolChanger].FirstOrDefault();
+            var toolchanger = viewStateRegistry.Categories[ObjCategories.MainRobotToolChanger].FirstOrDefault();
             ((ITxDisplayableObject)toolchanger).Display();
 
             viewer.ZoomToFit();
@@ -39,6 +39,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             foreach (var eoat in viewStateRegistry.Categories[ObjCategories.EOAT]) ((ITxDisplayableObject)eoat).Blank();
 
             BlankAll(TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))));
+            BlankAll(viewStateRegistry.Categories[ObjCategories.MainEOATToolChangers]);
             HideCables();
 
 
@@ -46,7 +47,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             manager.ExecuteCommand("GraphicViewer.FLShadedView");
 
             RecolorCategory(ObjCategories.Risers);
-            RecolorCategory(ObjCategories.MainToolChanger);
+            RecolorCategory(ObjCategories.MainRobotToolChanger);
 
         }
 

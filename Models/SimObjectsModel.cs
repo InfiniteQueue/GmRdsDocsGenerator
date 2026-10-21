@@ -44,5 +44,12 @@ namespace GmRdsDocsGenerator.Models
             set => SetProperty(ref _cpcZones, value);
         }
 
+        private TxObjectList<ITxComponent> _eoatToolChangers;
+        public TxObjectList<ITxComponent> EoatToolChangers
+        {
+            get => _eoatToolChangers;
+            set => SetProperty(ref _eoatToolChangers, value);
+        }
+
     }
 }

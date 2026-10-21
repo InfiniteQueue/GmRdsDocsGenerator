@@ -26,10 +26,11 @@ namespace GmRdsDocsGenerator.Models
                 {
                     MainData.RobotName = robot.Name;
                     if (SimDataRetrieval.GetFileName(robot as ITxStorable) is string modelName && !string.IsNullOrWhiteSpace(modelName)) MainData.RobotModel = modelName;
-                    ;
 
                     SimObjects.Riser = SimObjectRetrieval.GetRiser(robot);
-                    SimObjects.ToolChanger = SimObjectRetrieval.GetToolChanger((ITxObjectCollection)robot);
+                    SimObjectRetrieval.GetToolChangers((ITxObjectCollection)robot, out var robotToolChanger, out var eoatToolChangers);
+                    SimObjects.ToolChanger = robotToolChanger;
+                    SimObjects.EoatToolChangers = eoatToolChangers;
 
                     //Fill lists before assigning them, so bound controls receive the complete list when PropertyChanged fires
                     var eoat = new TxObjectList();

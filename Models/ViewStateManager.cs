@@ -68,7 +68,8 @@ namespace GmRdsDocsGenerator.Models
             Categories.AssignItems(objectLists.AllRisers.OfType<ITxDisplayableObject>(), ObjCategories.Risers);
             if (mainObjects.Riser is ITxDisplayableObject mainRiser) Categories.AssignItem(mainRiser, ObjCategories.Risers);
             //The tool changer also sits inside the robot container, so it's assigned after it
-            if (mainObjects.ToolChanger is ITxDisplayableObject mainToolChanger) Categories.AssignItem(mainToolChanger, ObjCategories.MainToolChanger);
+            if (mainObjects.ToolChanger is ITxDisplayableObject mainToolChanger) Categories.AssignItem(mainToolChanger, ObjCategories.MainRobotToolChanger);
+            Categories.AssignItems(mainObjects.EoatToolChangers.OfType<ITxDisplayableObject>(), ObjCategories.MainEOATToolChangers);
             Categories.AssignItems(objectLists.Fencing.OfType<ITxDisplayableObject>(), ObjCategories.Fencing);
             Categories.AssignItems(objectLists.AllProduct.OfType<ITxDisplayableObject>(), ObjCategories.Product);
 

@@ -167,7 +167,7 @@ namespace GmRdsDocsGenerator.Services
         }
 
         /// <summary> The first component attached to the robot's k7 or toolframe, directly or through other attachments, whose file path contains "TOOLCHANGERS" </summary>
-        public static ITxComponent GetToolChanger(ITxObjectCollection sourceRobot)
+        public static void GetToolChangers(ITxObjectCollection sourceRobot, out ITxComponent robotSideToolchanger, out TxObjectList<ITxComponent> eoatSideToolChanger)
         {
             var kinematicLink = sourceRobot.GetAllDescendants(new TxTypeFilter(typeof(TxKinematicLink))).FirstOrDefault(x => x.Name.ToLower() == "k7") as ITxLocatableObject;
 
@@ -180,12 +180,18 @@ namespace GmRdsDocsGenerator.Services
                 .Where(x => SimDataRetrieval.GetFilePath(x).IndexOf("TOOLCHANGERS", StringComparison.OrdinalIgnoreCase) >= 0)
                 .OfType<ITxComponent>();
 
-            var robotSideToolChangers = toolChangers.Where(x => ((ITxObjectCollection)x).GetDirectDescendants(new TxTypeFilter(typeof(TxFrame))).Count > 1);
+            var multiFrameToolChangers = toolChangers.Where(x => ((ITxObjectCollection)x).GetDirectDescendants(new TxTypeFilter(typeof(TxFrame))).Count > 1);
 
-            if (robotSideToolChangers.Count() == 0) return robotSideToolChangers.FirstOrDefault();
-
-            else return robotSideToolChangers.FirstOrDefault(x => ((ITxObjectCollection)x).GetDirectDescendants(new TxTypeFilter(typeof(TxFrame))).Any(y => y.Name.ToLower().Contains("pin")));
-
+            if (multiFrameToolChangers.Count() == 0) {
+                robotSideToolchanger = multiFrameToolChangers.First();
+                eoatSideToolChanger = new TxObjectList<ITxComponent>(toolChangers.Where(x => x != multiFrameToolChangers.First()));
+            }
+            else
+            {
+                var pinToolChanger = multiFrameToolChangers.FirstOrDefault(x => ((ITxObjectCollection)x).GetDirectDescendants(new TxTypeFilter(typeof(TxFrame))).Any(y => y.Name.ToLower().Contains("pin")));
+                robotSideToolchanger = pinToolChanger;
+                eoatSideToolChanger = new TxObjectList<ITxComponent>(toolChangers.Where( x => x != pinToolChanger));
+            }
         }
 
         /// <summary> The first component under the robot's container whose file path contains "BASE_PLATES" or "RISERS" </summary>
