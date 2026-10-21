@@ -106,7 +106,7 @@ namespace GmRdsDocsGenerator.Models
         /// <summary> Subscribes to CollectionChanged to run automatically when an object is added to a list /// </summary>
         void ColorAddedItems(IList newItems, TxColor newColor)
         {
-            if (newItems == null || newItems.Count == 0) return;
+            if (newColor == null || newItems == null || newItems.Count == 0) return;
             foreach (var item in newItems.OfType<ITxDisplayableObject>()) item.Color = newColor;
         }
 
