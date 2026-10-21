@@ -193,6 +193,7 @@
     <Compile Include="Services\ObjectCategoryColouring.cs" />
     <Compile Include="Services\ViewSetup\ViewSetupDCS.cs" />
     <Compile Include="Services\ViewSetup\ViewSetupEOATIndividual.cs" />
+    <Compile Include="Services\ViewSetup\ViewSetupRestrictedSpaceEnvelope.cs" />
     <Compile Include="Services\ViewSetup\ViewSetupToolchanger.cs" />
     <Compile Include="Services\ViewSetup\ViewSetupEOATRearIso.cs" />
     <Compile Include="Services\ViewSetup\ViewSetupEOATIso.cs" />
