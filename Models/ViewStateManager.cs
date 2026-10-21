@@ -74,6 +74,11 @@ namespace GmRdsDocsGenerator.Models
             Categories.AssignItems(objectLists.AllProduct.OfType<ITxDisplayableObject>(), ObjCategories.Product);
             Categories.AssignItems(objectLists.AllTooling.OfType<ITxDisplayableObject>(), ObjCategories.Tooling);
 
+            Categories.AssignItems(mainObjects.CPCRestrictedZones.OfType<ITxDisplayableObject>(), ObjCategories.CPCRestrictedZones);
+            Categories.AssignItems(mainObjects.CPCRestrictedZonesCSC.OfType<ITxDisplayableObject>(), ObjCategories.CPCRestrictedZonesCSC);
+            Categories.AssignItems(mainObjects.CPCSharedZones.OfType<ITxDisplayableObject>(), ObjCategories.CPCSharedZones);
+            Categories.AssignItems(mainObjects.CPCSharedZonesCSC.OfType<ITxDisplayableObject>(), ObjCategories.CPCSharedZonesCSC);
+
             foreach (var item in TxApplication.ActiveDocument.OperationRoot.GetDirectDescendants(new TxTypeFilter(typeof(ITxDisplayableObject))).OfType<ITxDisplayableObject>()) item.Blank();
 
             foreach (var item in TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))))

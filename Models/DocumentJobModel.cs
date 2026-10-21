@@ -45,9 +45,16 @@ namespace GmRdsDocsGenerator.Models
                     foreach (var panel in SimObjectRetrieval.GetPanels((ITxObjectCollection)robot)) panels.Add(panel);
                     SimObjects.Panels = panels;
 
-                    var cpcZones = new TxObjectList();
+                    var cpcZones = new TxObjectList<TxGroup>();
                     foreach (var zone in SimObjectRetrieval.GetCpcZones(robot)) cpcZones.Add(zone);
                     SimObjects.CpcZones = cpcZones;
+
+                    var categoriser = new CPCCategoriser(cpcZones, robot);
+                    categoriser.Process();
+                    SimObjects.CPCRestrictedZones = new TxObjectList<TxGroup>(categoriser.rob);
+                    SimObjects.CPCRestrictedZonesCSC = new TxObjectList<TxGroup>(categoriser.robCSC);
+                    SimObjects.CPCSharedZones = new TxObjectList<TxGroup>(categoriser.plc);
+                    SimObjects.CPCRestrictedZonesCSC = new TxObjectList<TxGroup>(categoriser.plcCSC);
 
                     if (SimObjectRetrieval.GetRobotRestrictedVolume(SimObjectRetrieval.GetRobotContainer(robot)) is ITxObject restrictedVolume)
                     {

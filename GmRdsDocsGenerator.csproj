@@ -171,6 +171,7 @@
     <Compile Include="Models\ViewStateManager.cs" />
     <Compile Include="Models\SimObjectScanLists.cs" />
     <Compile Include="Services\BackgroundSetup.cs" />
+    <Compile Include="Services\CPCCategoriser.cs" />
     <Compile Include="Services\SimObjectCategoryScan.cs" />
     <Compile Include="Services\SimObjectRetrieval.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
