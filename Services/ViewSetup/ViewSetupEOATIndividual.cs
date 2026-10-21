@@ -30,20 +30,23 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 
             OrientCameraIso(viewer, robot);
 
-
-
             var robotEquipment = viewStateRegistry.Categories[Models.CategoryRegistry.ObjCategories.MainRobotContainers].FirstOrDefault();
-            var disp = (ITxDisplayableObject)robotEquipment;
-            disp.Display();
-            disp.RestoreColor();
 
             var eoat = SimObjectRetrieval.GetEOAT((ITxObjectCollection)robotEquipment).ToArray()[EOATIndex];
             ((ITxDisplayableObject)eoat).Display();
 
             BlankAll(TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))));
             HideCables();
-
             viewer.ZoomToFit();
+
+
+            var disp = (ITxDisplayableObject)robotEquipment;
+            disp.Display();
+            disp.RestoreColor();
+
+
+            BlankAll(TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))));
+            HideCables();
 
             var manager = TxApplication.CommandsManager;
             manager.ExecuteCommand("GraphicViewer.FLShadedView");
