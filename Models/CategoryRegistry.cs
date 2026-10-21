@@ -60,12 +60,12 @@ namespace GmRdsDocsGenerator.Models
             MainEOATToolChangers,
             Fencing,
             Product,
-            ToolsSurroundingRobot,
             CPCSharedZones,
             CPCSharedZonesCSC,
             CPCRestrictedZones,
             CPCRestrictedZonesCSC,
             RestrictedVolume,
+            Tooling,
         }
 
         /// <summary> Links categories to their color for screenshots. Value may be null if color should not be overwritten </summary>
@@ -80,12 +80,12 @@ namespace GmRdsDocsGenerator.Models
             {ObjCategories.MainEOATToolChangers, GMColours.Red },
             {ObjCategories.Fencing, GMColours.Yellow },
             {ObjCategories.Product, GMColours.Blue },
-            {ObjCategories.ToolsSurroundingRobot, GMColours.Black1 },
             {ObjCategories.CPCSharedZones, GMColours.Cyan },
             {ObjCategories.CPCSharedZonesCSC, GMColours.Teal },
             {ObjCategories.CPCRestrictedZones, GMColours.Magenta },
             {ObjCategories.CPCRestrictedZonesCSC, GMColours.DarkMagenta },
             {ObjCategories.RestrictedVolume, null },
+            {ObjCategories.Tooling, GMColours.Black1 },
         };
         void InitNewCategoryCollection(KeyValuePair<ObjCategories, TxColor> item)
         {

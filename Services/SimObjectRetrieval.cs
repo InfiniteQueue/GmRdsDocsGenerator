@@ -47,7 +47,7 @@ namespace GmRdsDocsGenerator.Services
             return filteredItems.Distinct().ToArray();
         }
 
-        static IEnumerable<ITxObjectCollection> StepUpParents(ITxObject child, bool includeSelf = false)
+        public static IEnumerable<ITxObjectCollection> StepUpParents(ITxObject child, bool includeSelf = false)
         {
             if (includeSelf && child is ITxObjectCollection) yield return child as ITxObjectCollection;
 
@@ -234,9 +234,11 @@ namespace GmRdsDocsGenerator.Services
             if (folder == null) return returnDict;
 
             var subFolders = ((TxMainFolder)folder).GetDirectDescendants(new TxTypeFilter(typeof(TxFolder))).OfType<TxFolder>();
+
             foreach(var subFolder in subFolders)
             {
-                if ((subFolders as ITxObjectCollection).GetAllDescendants(new TxNoTypeFilter()).FirstOrDefault(x => x.Name.ToLower().Contains("restricted")) is ITxObject restrictedVolume) returnDict.Add(folder.Name, restrictedVolume);
+
+                if ((subFolder as TxFolder).GetAllDescendants(new TxNoTypeFilter()).FirstOrDefault(x => x.Name.ToLower().Contains("restricted")) is ITxObject restrictedVolume) returnDict.Add(folder.Name, restrictedVolume);
             }
 
             return returnDict;

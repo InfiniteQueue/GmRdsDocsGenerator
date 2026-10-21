@@ -72,6 +72,7 @@ namespace GmRdsDocsGenerator.Models
             Categories.AssignItems(mainObjects.EoatToolChangers.OfType<ITxDisplayableObject>(), ObjCategories.MainEOATToolChangers);
             Categories.AssignItems(objectLists.Fencing.OfType<ITxDisplayableObject>(), ObjCategories.Fencing);
             Categories.AssignItems(objectLists.AllProduct.OfType<ITxDisplayableObject>(), ObjCategories.Product);
+            Categories.AssignItems(objectLists.AllTooling.OfType<ITxDisplayableObject>(), ObjCategories.Tooling);
 
             foreach (var item in TxApplication.ActiveDocument.OperationRoot.GetDirectDescendants(new TxTypeFilter(typeof(ITxDisplayableObject))).OfType<ITxDisplayableObject>()) item.Blank();
 

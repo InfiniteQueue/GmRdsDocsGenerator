@@ -24,6 +24,7 @@ namespace GmRdsDocsGenerator.Services
             GetDcsObjects(newScan);
             GetFencing(newScan, root);
             GetRobotInbuiltDcsObjects(newScan);
+            GetToolingGroups(newScan);
             return newScan;
         }
 
@@ -79,6 +80,11 @@ namespace GmRdsDocsGenerator.Services
             var containers = newScan.AllRobots.Select(x => Services.SimObjectRetrieval.GetRobotContainer(x)).OfType<ITxObjectCollection>();
             Debug.WriteLine($"{containers.Count()} robot containers found");
             newScan.AllRobotContainers = new TxObjectList<ITxObjectCollection>(containers);
+        }
+        static void GetToolingGroups(SimObjectScanLists newScan)
+        {
+            var tooling = TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxCompoundResource))).Where(x => x.Name == "TOOLING").OfType<TxCompoundResource>();
+            newScan.AllTooling = new TxObjectList<TxCompoundResource> (tooling );
         }
     }
 }

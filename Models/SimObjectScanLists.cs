@@ -28,5 +28,6 @@ namespace GmRdsDocsGenerator.Models
         public TxObjectList<ITxComponent> InbuiltRobotDCS { get; set; } = new TxObjectList<ITxComponent>();
         public TxObjectList<ITxComponent> AllRisers { get; set; } = new TxObjectList<ITxComponent>();
         public TxObjectList<ITxObjectCollection> AllRobotContainers { get; set; } = new TxObjectList<ITxObjectCollection>();
+        public TxObjectList<TxCompoundResource> AllTooling { get; set; } = new TxObjectList<TxCompoundResource>();
     }
 }
