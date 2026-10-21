@@ -225,5 +225,32 @@ namespace GmRdsDocsGenerator.Services
             var robotPrefix = FirstTwoNameParts(rob.Name);
             return StepUpParents(rob).TakeWhile(x => x.Name.IndexOf(robotPrefix, StringComparison.OrdinalIgnoreCase) >= 0).LastOrDefault();
         }
+
+        public static Dictionary<string, ITxObject> GetRestrictedVolumesByName()
+        {
+            var returnDict = new Dictionary<string, ITxObject>();
+            var folder = TxApplication.ActiveDocument.MainFolders.FirstOrDefault(x => x.Name.ToLower() == "motion volumes");
+
+            if (folder == null) return returnDict;
+
+            var subFolders = ((TxMainFolder)folder).GetDirectDescendants(new TxTypeFilter(typeof(TxFolder))).OfType<TxFolder>();
+            foreach(var subFolder in subFolders)
+            {
+                if ((subFolders as ITxObjectCollection).GetAllDescendants(new TxNoTypeFilter()).FirstOrDefault(x => x.Name.ToLower().Contains("restricted")) is ITxObject restrictedVolume) returnDict.Add(folder.Name, restrictedVolume);
+            }
+
+            return returnDict;
+        }
+
+        public static ITxObject GetRobotRestrictedVolume(ITxObjectCollection robotCollection)
+        {
+            var volumes = GetRestrictedVolumesByName();
+            if (volumes.Keys.FirstOrDefault(x => FirstTwoNameParts(x) == FirstTwoNameParts(robotCollection.Name)) is string dictKey)
+            {
+                return volumes[dictKey];
+            }
+
+            return null;
+        }
     }
 }
