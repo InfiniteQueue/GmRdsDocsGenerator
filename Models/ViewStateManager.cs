@@ -62,6 +62,8 @@ namespace GmRdsDocsGenerator.Models
             var mainRobotContainer = SimObjectRetrieval.GetRobotContainer(mainObjects.Robot);
             Categories.AssignItems(mainObjects.DcsObjects.OfType<ITxDisplayableObject>(), ObjCategories.MainDcs);
             Categories.AssignItem((ITxDisplayableObject)mainRobotContainer, ObjCategories.MainRobotContainers);
+            Categories.AssignItem((ITxDisplayableObject)mainObjects.Robot, ObjCategories.MainTxRobot);
+            Categories.AssignItems(objectLists.AllTxRobots.Where(x => x != mainObjects.Robot).OfType<ITxDisplayableObject>(), ObjCategories.OtherTxRobots);
             Categories.AssignItems(objectLists.AllRobotContainers.OfType<ITxDisplayableObject>().Where(x => x != mainRobotContainer), ObjCategories.OtherRobotsContainers);
             Categories.AssignItems(objectLists.AllEOAT.OfType<ITxDisplayableObject>(), ObjCategories.EOAT);
             //Risers sit inside robot containers, so they're assigned after them to override the container colour

@@ -22,8 +22,8 @@ namespace GmRdsDocsGenerator.Services
 
             (mainObjects.Robot as ITxDisplayableObject).Display();
 
-            Debug.WriteLine($"Colouring {registry.AllRobots.Count} robots");
-            ColourAll(registry.AllRobots.Where(x => x != mainObjects.Robot), GMColours.Gray1);
+            Debug.WriteLine($"Colouring {registry.AllTxRobots.Count} robots");
+            ColourAll(registry.AllTxRobots.Where(x => x != mainObjects.Robot), GMColours.Gray1);
 
             Debug.WriteLine($"Colouring {registry.AllEOAT.Count} grippers");
             ColourAll(registry.AllEOAT, GMColours.Red);
