@@ -48,6 +48,11 @@ namespace GmRdsDocsGenerator.Models
                     var cpcZones = new TxObjectList();
                     foreach (var zone in SimObjectRetrieval.GetCpcZones(robot)) cpcZones.Add(zone);
                     SimObjects.CpcZones = cpcZones;
+
+                    if (SimObjectRetrieval.GetRobotRestrictedVolume(SimObjectRetrieval.GetRobotContainer(robot)) is ITxObject restrictedVolume)
+                    {
+                        SimObjects.RestrictedVolume = restrictedVolume;
+                    }
                 }
             }
         }

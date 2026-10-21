@@ -51,5 +51,7 @@ namespace GmRdsDocsGenerator.Models
             set => SetProperty(ref _eoatToolChangers, value);
         }
 
+        public ITxObject RestrictedVolume { get; set; }
+
     }
 }

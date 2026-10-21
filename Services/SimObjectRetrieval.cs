@@ -244,6 +244,8 @@ namespace GmRdsDocsGenerator.Services
 
         public static ITxObject GetRobotRestrictedVolume(ITxObjectCollection robotCollection)
         {
+            if (robotCollection == null) return null;
+
             var volumes = GetRestrictedVolumesByName();
             if (volumes.Keys.FirstOrDefault(x => FirstTwoNameParts(x) == FirstTwoNameParts(robotCollection.Name)) is string dictKey)
             {

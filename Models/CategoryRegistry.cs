@@ -65,8 +65,10 @@ namespace GmRdsDocsGenerator.Models
             CPCSharedZonesCSC,
             CPCRestrictedZones,
             CPCRestrictedZonesCSC,
+            RestrictedVolume,
         }
 
+        /// <summary> Links categories to their color for screenshots. Value may be null if color should not be overwritten </summary>
         public static Dictionary<ObjCategories, TxColor> CategoryColors => new Dictionary<ObjCategories, TxColor>()
         {
             {ObjCategories.MainRobotContainers, GMColours.Blue },
@@ -83,6 +85,7 @@ namespace GmRdsDocsGenerator.Models
             {ObjCategories.CPCSharedZonesCSC, GMColours.Teal },
             {ObjCategories.CPCRestrictedZones, GMColours.Magenta },
             {ObjCategories.CPCRestrictedZonesCSC, GMColours.DarkMagenta },
+            {ObjCategories.RestrictedVolume, null },
         };
         void InitNewCategoryCollection(KeyValuePair<ObjCategories, TxColor> item)
         {
@@ -109,15 +112,18 @@ namespace GmRdsDocsGenerator.Models
             {
                 foreach(var  item in pair.Value)
                 {
-                    item.Color = CategoryColors[pair.Key];
+                    if (CategoryColors[pair.Key] is TxColor foundColor)
+                        item.Color = foundColor;
                 }
             }
         }
 
         public void ApplyCategoryColor(ObjCategories category)
         {
-            var color = CategoryColors[category];
-            foreach (var item in categoryLists[category]) item.Color = color;        
+            if (CategoryColors[category] is TxColor foundColor)
+            {
+                foreach (var item in categoryLists[category]) item.Color = foundColor;
+            }
         }
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
