@@ -75,6 +75,7 @@ namespace GmRdsDocsGenerator.Models
             {ObjCategories.EOAT, GMColours.Red },
             {ObjCategories.Risers, GMColours.Blue },
             {ObjCategories.MainRobotToolChanger, GMColours.Red },
+            {ObjCategories.MainEOATToolChangers, GMColours.Red },
             {ObjCategories.Fencing, GMColours.Yellow },
             {ObjCategories.Product, GMColours.Blue },
             {ObjCategories.ToolsSurroundingRobot, GMColours.Black1 },
