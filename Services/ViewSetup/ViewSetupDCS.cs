@@ -48,6 +48,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             }
 
             DisplayAll(viewStateRegistry.Categories[ObjCategories.MainRobotContainers]);
+            DisplayAll(viewStateRegistry.Categories[ObjCategories.MainProduct]);
 
             graphicViewer.ZoomToFit();
 
