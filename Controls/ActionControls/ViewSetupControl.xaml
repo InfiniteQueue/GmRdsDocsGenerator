@@ -16,6 +16,7 @@
         <Button Content="EOAT Index" Click="EOATIndex"/>
         <Button Content="Toolchanger" Click="ToolChanger"/>
         <Button Content="Restricted Space Envelope" Click="RestrictedSpaceEnvelope"/>
+        <Button Content="CPC Top" Click="CpcTop"/>
 
         <Button Content="Reset" Click="Reset"/>
     </StackPanel>
