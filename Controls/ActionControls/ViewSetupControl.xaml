@@ -14,7 +14,8 @@
         <Button Content="EOAT Iso" Click="EOATIso"/>
         <Button Content="EOAT Rear Iso" Click="EOATRearIso"/>
         <Button Content="EOAT Index" Click="EOATIndex"/>
-        <Button Content="Toolchanger" Click="ToolChanger"/>
+        <Button Content="Toolchanger Iso" Click="ToolChangerIso"/>
+        <Button Content="Toolchanger Front" Click="ToolChangerFront"/>
         <Button Content="Restricted Space Envelope" Click="RestrictedSpaceEnvelope"/>
         <Button Content="CPC Top" Click="CpcTop"/>
         <Button Content="CPC Iso" Click="CpcIso"/>
