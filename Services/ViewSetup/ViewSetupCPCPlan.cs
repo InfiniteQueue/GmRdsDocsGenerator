@@ -13,6 +13,8 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
 {
     internal class ViewSetupCPCPlan : ViewSetupBase
     {
+        public bool SyncPose { get; set; }
+
         protected override void PerformSetup()
         {
             viewStateRegistry.DocumentViewSnapshot.LoadDisplayData();
@@ -23,8 +25,8 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             var robotContainer = viewStateRegistry.Categories[Models.CategoryRegistry.ObjCategories.MainRobotContainers].FirstOrDefault();
             var robot = ((ITxObjectCollection)robotContainer).GetAllDescendants(new TxTypeFilter(typeof(ITxRobot))).FirstOrDefault() as TxRobot;
 
-            var homePose = (TxPose)robot.PoseList.FirstOrDefault(x => x.Name.ToLower() == "home");
-            robot.CurrentPose = homePose.PoseData;
+            var robotPose = (TxPose)robot.PoseList.FirstOrDefault(x => x.Name.ToLower() == (SyncPose ? "home" : "start"));
+            robot.CurrentPose = robotPose.PoseData;
 
             OrientCameraTop(viewer, robot);
 
