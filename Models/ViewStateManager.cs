@@ -73,7 +73,12 @@ namespace GmRdsDocsGenerator.Models
             if (mainObjects.ToolChanger is ITxDisplayableObject mainToolChanger) Categories.AssignItem(mainToolChanger, ObjCategories.MainRobotToolChanger);
             Categories.AssignItems(mainObjects.EoatToolChangers.OfType<ITxDisplayableObject>(), ObjCategories.MainEOATToolChangers);
             Categories.AssignItems(objectLists.Fencing.OfType<ITxDisplayableObject>(), ObjCategories.Fencing);
-            Categories.AssignItems(objectLists.AllProduct.OfType<ITxDisplayableObject>(), ObjCategories.Product);
+
+            Categories.AssignItems(objectLists.AllProduct
+                .Where(x => !mainObjects.Product.Contains(x)) //The following category assignment should remove these anyway. This filtering is just additional safety
+                .OfType<ITxDisplayableObject>(), ObjCategories.OtherRobotProduct);
+
+            Categories.AssignItems(mainObjects.Product.OfType<ITxDisplayableObject>(), ObjCategories.MainProduct);
             Categories.AssignItems(objectLists.AllTooling.OfType<ITxDisplayableObject>(), ObjCategories.Tooling);
 
             Categories.AssignItems(mainObjects.CPCRestrictedZones.OfType<ITxDisplayableObject>(), ObjCategories.CPCRestrictedZones);

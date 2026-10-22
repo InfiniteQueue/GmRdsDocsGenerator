@@ -43,7 +43,7 @@ namespace GmRdsDocsGenerator.Models
 
                     var panels = new TxObjectList();
                     foreach (var panel in SimObjectRetrieval.GetPanels((ITxObjectCollection)robot)) panels.Add(panel);
-                    SimObjects.Panels = panels;
+                    SimObjects.Product = panels;
 
                     var cpcZones = new TxObjectList<TxGroup>();
                     foreach (var zone in SimObjectRetrieval.GetCpcZones(robot)) cpcZones.Add(zone);
