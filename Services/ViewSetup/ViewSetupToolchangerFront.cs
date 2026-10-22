@@ -48,7 +48,6 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             manager.ExecuteCommand("GraphicViewer.FLShadedView");
 
             RecolorCategory(ObjCategories.Risers);
-            RecolorCategory(ObjCategories.MainRobotToolChanger);
 
         }
 
