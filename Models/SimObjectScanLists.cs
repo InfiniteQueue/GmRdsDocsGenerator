@@ -20,7 +20,7 @@ namespace GmRdsDocsGenerator.Models
             return SimObjectCategoryScan.GetNewScan();
         }
 
-        public TxObjectList<ITxRobot> AllRobots { get; set; } = new TxObjectList<ITxRobot>();
+        public TxObjectList<ITxRobot> AllTxRobots { get; set; } = new TxObjectList<ITxRobot>();
         public TxObjectList<ITxDevice> AllEOAT { get; set; } = new TxObjectList<ITxDevice>();
         public TxObjectList<ITxComponent> AllProduct { get; set; } = new TxObjectList<ITxComponent>();
         public TxObjectList<ITxObject> AllDCSObjects { get; set; } = new TxObjectList<ITxObject>();
@@ -28,5 +28,6 @@ namespace GmRdsDocsGenerator.Models
         public TxObjectList<ITxComponent> InbuiltRobotDCS { get; set; } = new TxObjectList<ITxComponent>();
         public TxObjectList<ITxComponent> AllRisers { get; set; } = new TxObjectList<ITxComponent>();
         public TxObjectList<ITxObjectCollection> AllRobotContainers { get; set; } = new TxObjectList<ITxObjectCollection>();
+        public TxObjectList<TxCompoundResource> AllTooling { get; set; } = new TxObjectList<TxCompoundResource>();
     }
 }

@@ -101,7 +101,7 @@ namespace GmRdsDocsGenerator.Controls.DataEntryControls
             {"Risers", CategoryRegistry.ObjCategories.Risers },
             {"Main Tool Changer", CategoryRegistry.ObjCategories.MainRobotToolChanger },
             {"Fencing", CategoryRegistry.ObjCategories.Fencing },
-            {"Tools Surrounding Robot", CategoryRegistry.ObjCategories.ToolsSurroundingRobot },
+            {"Tooling", CategoryRegistry.ObjCategories.Tooling },
             {"CPC Shared Zones",  CategoryRegistry.ObjCategories.CPCSharedZones},
             {"CPC Shared Zones (CSC)", CategoryRegistry.ObjCategories.CPCSharedZonesCSC },
             {"CPC Restricted Zones", CategoryRegistry.ObjCategories.CPCRestrictedZones },

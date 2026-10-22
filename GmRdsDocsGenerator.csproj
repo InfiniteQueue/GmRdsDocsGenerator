@@ -171,6 +171,7 @@
     <Compile Include="Models\ViewStateManager.cs" />
     <Compile Include="Models\SimObjectScanLists.cs" />
     <Compile Include="Services\BackgroundSetup.cs" />
+    <Compile Include="Services\CPCCategoriser.cs" />
     <Compile Include="Services\SimObjectCategoryScan.cs" />
     <Compile Include="Services\SimObjectRetrieval.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -191,9 +192,13 @@
     <Compile Include="Models\SimObjectsModel.cs" />
     <Compile Include="Services\ViewSetup\ViewSetupBase.cs" />
     <Compile Include="Services\ObjectCategoryColouring.cs" />
+    <Compile Include="Services\ViewSetup\ViewSetupCPCAngledIso.cs" />
     <Compile Include="Services\ViewSetup\ViewSetupDCS.cs" />
     <Compile Include="Services\ViewSetup\ViewSetupEOATIndividual.cs" />
-    <Compile Include="Services\ViewSetup\ViewSetupToolchanger.cs" />
+    <Compile Include="Services\ViewSetup\ViewSetupCPCPlan.cs" />
+    <Compile Include="Services\ViewSetup\ViewSetupRestrictedSpaceEnvelope.cs" />
+    <Compile Include="Services\ViewSetup\ViewSetupToolchangerFront.cs" />
+    <Compile Include="Services\ViewSetup\ViewSetupToolchangerIso.cs" />
     <Compile Include="Services\ViewSetup\ViewSetupEOATRearIso.cs" />
     <Compile Include="Services\ViewSetup\ViewSetupEOATIso.cs" />
     <Compile Include="Services\ViewSetup\ViewSetupDcsIso.cs" />

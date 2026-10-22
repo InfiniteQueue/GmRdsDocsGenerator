@@ -62,6 +62,8 @@ namespace GmRdsDocsGenerator.Models
             var mainRobotContainer = SimObjectRetrieval.GetRobotContainer(mainObjects.Robot);
             Categories.AssignItems(mainObjects.DcsObjects.OfType<ITxDisplayableObject>(), ObjCategories.MainDcs);
             Categories.AssignItem((ITxDisplayableObject)mainRobotContainer, ObjCategories.MainRobotContainers);
+            Categories.AssignItem((ITxDisplayableObject)mainObjects.Robot, ObjCategories.MainTxRobot);
+            Categories.AssignItems(objectLists.AllTxRobots.Where(x => x != mainObjects.Robot).OfType<ITxDisplayableObject>(), ObjCategories.OtherTxRobots);
             Categories.AssignItems(objectLists.AllRobotContainers.OfType<ITxDisplayableObject>().Where(x => x != mainRobotContainer), ObjCategories.OtherRobotsContainers);
             Categories.AssignItems(objectLists.AllEOAT.OfType<ITxDisplayableObject>(), ObjCategories.EOAT);
             //Risers sit inside robot containers, so they're assigned after them to override the container colour
@@ -71,7 +73,20 @@ namespace GmRdsDocsGenerator.Models
             if (mainObjects.ToolChanger is ITxDisplayableObject mainToolChanger) Categories.AssignItem(mainToolChanger, ObjCategories.MainRobotToolChanger);
             Categories.AssignItems(mainObjects.EoatToolChangers.OfType<ITxDisplayableObject>(), ObjCategories.MainEOATToolChangers);
             Categories.AssignItems(objectLists.Fencing.OfType<ITxDisplayableObject>(), ObjCategories.Fencing);
-            Categories.AssignItems(objectLists.AllProduct.OfType<ITxDisplayableObject>(), ObjCategories.Product);
+
+            Categories.AssignItems(objectLists.AllProduct
+                .Where(x => !mainObjects.Product.Contains(x)) //The following category assignment should remove these anyway. This filtering is just additional safety
+                .OfType<ITxDisplayableObject>(), ObjCategories.OtherRobotProduct);
+
+            Categories.AssignItems(mainObjects.Product.OfType<ITxDisplayableObject>(), ObjCategories.MainProduct);
+            Categories.AssignItems(objectLists.AllTooling.OfType<ITxDisplayableObject>(), ObjCategories.Tooling);
+
+            Categories.AssignItems(mainObjects.CPCRestrictedZones.OfType<ITxDisplayableObject>(), ObjCategories.CPCRestrictedZones);
+            Categories.AssignItems(mainObjects.CPCRestrictedZonesCSC.OfType<ITxDisplayableObject>(), ObjCategories.CPCRestrictedZonesCSC);
+            Categories.AssignItems(mainObjects.CPCSharedZones.OfType<ITxDisplayableObject>(), ObjCategories.CPCSharedZones);
+            Categories.AssignItems(mainObjects.CPCSharedZonesCSC.OfType<ITxDisplayableObject>(), ObjCategories.CPCSharedZonesCSC);
+
+            foreach (var item in TxApplication.ActiveDocument.OperationRoot.GetDirectDescendants(new TxTypeFilter(typeof(ITxDisplayableObject))).OfType<ITxDisplayableObject>()) item.Blank();
 
             foreach (var item in TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxFrame))))
             {

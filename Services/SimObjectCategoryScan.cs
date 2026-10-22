@@ -24,12 +24,13 @@ namespace GmRdsDocsGenerator.Services
             GetDcsObjects(newScan);
             GetFencing(newScan, root);
             GetRobotInbuiltDcsObjects(newScan);
+            GetToolingGroups(newScan);
             return newScan;
         }
 
         private static void GetDcsObjects(SimObjectScanLists newScan)
         {
-            var attachedDcsObjects = new TxObjectList<ITxObject>(newScan.AllRobots.SelectMany(x => SimObjectRetrieval.GetDCSObjects((ITxObjectCollection)x)));
+            var attachedDcsObjects = new TxObjectList<ITxObject>(newScan.AllTxRobots.SelectMany(x => SimObjectRetrieval.GetDCSObjects((ITxObjectCollection)x)));
             Debug.WriteLine($"{attachedDcsObjects.Count} Attached Dcs objects found");
             foreach (var item in attachedDcsObjects) Debug.WriteLine(item.Name);
             newScan.AllDCSObjects = attachedDcsObjects;
@@ -37,14 +38,14 @@ namespace GmRdsDocsGenerator.Services
 
         private static void GetPanels(SimObjectScanLists newScan)
         {
-            var panelObjects = new TxObjectList<ITxComponent>(newScan.AllRobots.SelectMany(x => SimObjectRetrieval.GetPanels((ITxObjectCollection)x)));
+            var panelObjects = new TxObjectList<ITxComponent>(newScan.AllTxRobots.SelectMany(x => SimObjectRetrieval.GetPanels((ITxObjectCollection)x)));
             Debug.WriteLine($"{panelObjects.Count} product objects found");
             newScan.AllProduct = panelObjects;
         }
 
         private static void GetGrippers(SimObjectScanLists newScan)
         {
-            var EOATObjects = new TxObjectList<ITxDevice>(newScan.AllRobots.SelectMany(x => SimObjectRetrieval.GetEOAT((ITxObjectCollection)x)));
+            var EOATObjects = new TxObjectList<ITxDevice>(newScan.AllTxRobots.SelectMany(x => SimObjectRetrieval.GetEOAT((ITxObjectCollection)x)));
             Debug.WriteLine($"{EOATObjects.Count} EOAT objects found");
             foreach (var item in EOATObjects) Debug.WriteLine(item.Name);
             newScan.AllEOAT = EOATObjects;
@@ -54,7 +55,7 @@ namespace GmRdsDocsGenerator.Services
         {
             var robotObjects = new TxObjectList<ITxRobot>(root.GetAllDescendants(new TxTypeFilter(typeof(ITxRobot))).OfType<ITxRobot>());
             Debug.WriteLine($"{robotObjects.Count} robot objects found");
-            newScan.AllRobots = robotObjects;
+            newScan.AllTxRobots = robotObjects;
         }
         static void GetFencing(SimObjectScanLists newScan, TxPhysicalRoot root)
         {
@@ -64,21 +65,26 @@ namespace GmRdsDocsGenerator.Services
         }
         static void GetRobotInbuiltDcsObjects(SimObjectScanLists newScan)
         {
-            var allInbuilt = newScan.AllRobots.SelectMany(x => SimObjectRetrieval.GetInbuiltRobotDcs(x));
+            var allInbuilt = newScan.AllTxRobots.SelectMany(x => SimObjectRetrieval.GetInbuiltRobotDcs(x));
             Debug.WriteLine($"{allInbuilt.Count()} inbuilt dcs objects found");
             newScan.InbuiltRobotDCS = new TxObjectList<ITxComponent>(allInbuilt);
         }
         static void GetRisers(SimObjectScanLists newScan)
         {
-            var risers = newScan.AllRobots.Select(x => SimObjectRetrieval.GetRiser(x)).Where(x => x != null).Distinct();
+            var risers = newScan.AllTxRobots.Select(x => SimObjectRetrieval.GetRiser(x)).Where(x => x != null).Distinct();
             Debug.WriteLine($"{risers.Count()} risers found");
             newScan.AllRisers = new TxObjectList<ITxComponent>(risers);
         }
         static void GetRobotContainers(SimObjectScanLists newScan)
         {
-            var containers = newScan.AllRobots.Select(x => Services.SimObjectRetrieval.GetRobotContainer(x)).OfType<ITxObjectCollection>();
+            var containers = newScan.AllTxRobots.Select(x => Services.SimObjectRetrieval.GetRobotContainer(x)).OfType<ITxObjectCollection>();
             Debug.WriteLine($"{containers.Count()} robot containers found");
             newScan.AllRobotContainers = new TxObjectList<ITxObjectCollection>(containers);
+        }
+        static void GetToolingGroups(SimObjectScanLists newScan)
+        {
+            var tooling = TxApplication.ActiveDocument.PhysicalRoot.GetAllDescendants(new TxTypeFilter(typeof(TxCompoundResource))).Where(x => x.Name == "TOOLING").OfType<TxCompoundResource>();
+            newScan.AllTooling = new TxObjectList<TxCompoundResource> (tooling );
         }
     }
 }

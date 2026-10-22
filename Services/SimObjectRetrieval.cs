@@ -47,7 +47,7 @@ namespace GmRdsDocsGenerator.Services
             return filteredItems.Distinct().ToArray();
         }
 
-        static IEnumerable<ITxObjectCollection> StepUpParents(ITxObject child, bool includeSelf = false)
+        public static IEnumerable<ITxObjectCollection> StepUpParents(ITxObject child, bool includeSelf = false)
         {
             if (includeSelf && child is ITxObjectCollection) yield return child as ITxObjectCollection;
 
@@ -224,6 +224,37 @@ namespace GmRdsDocsGenerator.Services
         {
             var robotPrefix = FirstTwoNameParts(rob.Name);
             return StepUpParents(rob).TakeWhile(x => x.Name.IndexOf(robotPrefix, StringComparison.OrdinalIgnoreCase) >= 0).LastOrDefault();
+        }
+
+        public static Dictionary<string, ITxObject> GetRestrictedVolumesByName()
+        {
+            var returnDict = new Dictionary<string, ITxObject>();
+            var folder = TxApplication.ActiveDocument.MainFolders.FirstOrDefault(x => x.Name.ToLower() == "motion volumes");
+
+            if (folder == null) return returnDict;
+
+            var subFolders = ((TxMainFolder)folder).GetDirectDescendants(new TxTypeFilter(typeof(TxFolder))).OfType<TxFolder>();
+
+            foreach(var subFolder in subFolders)
+            {
+
+                if ((subFolder as TxFolder).GetAllDescendants(new TxNoTypeFilter()).FirstOrDefault(x => x.Name.ToLower().Contains("restricted")) is ITxObject restrictedVolume) returnDict.Add(folder.Name, restrictedVolume);
+            }
+
+            return returnDict;
+        }
+
+        public static ITxObject GetRobotRestrictedVolume(ITxObjectCollection robotCollection)
+        {
+            if (robotCollection == null) return null;
+
+            var volumes = GetRestrictedVolumesByName();
+            if (volumes.Keys.FirstOrDefault(x => FirstTwoNameParts(x) == FirstTwoNameParts(robotCollection.Name)) is string dictKey)
+            {
+                return volumes[dictKey];
+            }
+
+            return null;
         }
     }
 }

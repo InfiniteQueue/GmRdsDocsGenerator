@@ -9,7 +9,7 @@ using static GmRdsDocsGenerator.Models.CategoryRegistry;
 
 namespace GmRdsDocsGenerator.Services.ViewSetup
 {
-    internal class ViewSetupToolchanger : ViewSetupBase
+    internal class ViewSetupToolchangerFront : ViewSetupBase
     {
         protected override void PerformSetup()
         {
@@ -24,11 +24,12 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             var homePose = (TxPose)robot.PoseList.FirstOrDefault(x => x.Name.ToLower() == "home");
             robot.CurrentPose = homePose.PoseData;
 
-            OrientCameraIso(viewer, robot);
+            OrientCameraFront(viewer, robot);
 
 
             var toolchanger = viewStateRegistry.Categories[ObjCategories.MainRobotToolChanger].FirstOrDefault();
             ((ITxDisplayableObject)toolchanger).Display();
+            ((ITxDisplayableObject)toolchanger).RestoreColor();
 
             viewer.ZoomToFit();
 
@@ -47,16 +48,15 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             manager.ExecuteCommand("GraphicViewer.FLShadedView");
 
             RecolorCategory(ObjCategories.Risers);
-            RecolorCategory(ObjCategories.MainRobotToolChanger);
 
         }
 
-        private static void OrientCameraIso(TxGraphicViewer viewer, ITxObject robot)
+        private static void OrientCameraFront(TxGraphicViewer viewer, ITxObject robot)
         {
             var robotOrientation = new TxTransformation(((ITxLocatableObject)robot).AbsoluteLocation);
             var origin = robotOrientation.Translation;
-            var forwardVector = robotOrientation.RotateAndScale(new TxVector(-1, 1, -1) / Math.Sqrt(3));
-            var upVector = robotOrientation.RotateAndScale(new TxVector(-1, 1, 2) / Math.Sqrt(6)); // robot Z projected perpendicular to forward
+            var forwardVector = robotOrientation.RotateAndScale(new TxVector(-1, 0,0));
+            var upVector = new TxVector(0,0,1); // robot Z projected perpendicular to forward
             viewer.CurrentCamera = new TxCamera(
                 origin,                          //Reference point
                 origin - forwardVector * 3000,   //Position

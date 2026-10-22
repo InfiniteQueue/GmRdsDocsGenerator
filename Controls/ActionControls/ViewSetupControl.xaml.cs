@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GmRdsDocsGenerator.Models;
 using GmRdsDocsGenerator.Services.ViewSetup;
+using static GmRdsDocsGenerator.Services.ViewSetup.ViewSetupBase;
+
 
 namespace GmRdsDocsGenerator.Controls.ActionControls
 {
@@ -35,7 +37,7 @@ namespace GmRdsDocsGenerator.Controls.ActionControls
 
         private void DCSSetup(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = ViewSetupDCS.NewSetup<ViewSetupDCS>(StateManager);
+            StateManager.ActiveView = NewSetup<ViewSetupDCS>(StateManager);
         }
 
         private void Reset(object sender, RoutedEventArgs e)
@@ -45,41 +47,64 @@ namespace GmRdsDocsGenerator.Controls.ActionControls
 
         private void DcsTop(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = ViewSetupDcsTop.NewSetup<ViewSetupDcsTop>(StateManager);
+            StateManager.ActiveView = NewSetup<ViewSetupDcsTop>(StateManager);
         }
 
         private void DcsSide(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = ViewSetupDcsSide.NewSetup<ViewSetupDcsSide>(StateManager);
+            StateManager.ActiveView = NewSetup<ViewSetupDcsSide>(StateManager);
         }
 
         private void DcsIso(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = ViewSetupDcsIso.NewSetup<ViewSetupDcsIso>(StateManager);
+            StateManager.ActiveView = NewSetup<ViewSetupDcsIso>(StateManager);
         }
 
         private void EOATIso(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = ViewSetupEOATIso.NewSetup<ViewSetupEOATIso>(StateManager);
+            StateManager.ActiveView = NewSetup<ViewSetupEOATIso>(StateManager);
         }
 
         private void EOATRearIso(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = ViewSetupEOATRearIso.NewSetup<ViewSetupEOATRearIso>(StateManager);
+            StateManager.ActiveView = NewSetup<ViewSetupEOATRearIso>(StateManager);
 
         }
 
-        private void ToolChanger(object sender, RoutedEventArgs e)
+        private void ToolChangerIso(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = ViewSetupToolchanger.NewSetup<ViewSetupToolchanger>(StateManager);
+            StateManager.ActiveView = NewSetup<ViewSetupToolchangerIso>(StateManager);
+        }
+
+        private void ToolChangerFront(object sender, RoutedEventArgs e)
+        {
+            StateManager.ActiveView = NewSetup<ViewSetupToolchangerFront>(StateManager);
         }
 
         private void EOATIndex(object sender, RoutedEventArgs e)
         {
-            var newSetup = ViewSetupEOATIndividual.NewSetup<ViewSetupEOATIndividual>(StateManager);
+            var newSetup = NewSetup<ViewSetupEOATIndividual>(StateManager);
             newSetup.EOATIndex = 0;
             StateManager.ActiveView = newSetup;
 
+        }
+
+        private void RestrictedSpaceEnvelope(object sender, RoutedEventArgs e)
+        {
+            StateManager.ActiveView = NewSetup<ViewSetupRestrictedSpaceEnvelope>(StateManager);
+        }
+
+        private void CpcTop(object sender, RoutedEventArgs e)
+        {
+            StateManager.ActiveView = NewSetup<ViewSetupCPCPlan>(StateManager);
+        }
+
+        private void CpcIso(object sender, RoutedEventArgs e)
+        {
+
+            var newSetup = NewSetup<ViewSetupCPCAngledIso>(StateManager);
+            newSetup.ClockwiseTurns = 1;
+            StateManager.ActiveView = newSetup;
         }
     }
 }

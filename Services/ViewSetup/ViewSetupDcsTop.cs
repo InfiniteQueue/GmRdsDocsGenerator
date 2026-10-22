@@ -19,7 +19,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             viewer.CurrentCamera = new TxCamera(
                 origin,                                                         //Reference point
                 origin + robotOrientation.RotateAndScale(new TxVector(0, 0, 3000)), //Position: above, along robot Z
-                robotOrientation.RotateAndScale(new TxVector(-1, 0, 0)));       //Up vector: robot front at bottom of image
+                new TxVector(1, 0, 0));       //Up vector: robot front at bottom of image
             BaseDcsSetup();
         }
     }

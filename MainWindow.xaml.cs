@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GmRdsDocsGenerator.Services;
+using GmRdsDocsGenerator.Statics;
 using Tecnomatix.Engineering;
 
 namespace GmRdsDocsGenerator
@@ -29,11 +30,21 @@ namespace GmRdsDocsGenerator
 
             ctrlDocumentJobControl.Model = new Models.DocumentJobModel();
 
-            this.Closing += RestoreBackground;
-            this.Closed += RestoreBackground;
+            this.Closing += OnClose;
+            this.Closed += OnClose;
         }
 
-        void RestoreBackground(object sender, EventArgs e)
+        void OnClose(object sender, EventArgs e)
+        {
+            DisposeView();
+            RestoreBackground();
+        }
+        void DisposeView()
+        {
+            if (ctrlDocumentJobControl?.Model?.ViewStates?.OriginalViewSnapshot is TxSnapshot originalViewSnapshot) originalViewSnapshot.LoadDisplayData();
+        }
+
+        private void RestoreBackground()
         {
             backgroundSetup?.Dispose();
             backgroundSetup = null;

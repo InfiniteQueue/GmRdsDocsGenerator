@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Tecnomatix.Engineering;
+using static GmRdsDocsGenerator.Models.CategoryRegistry;
 
 namespace GmRdsDocsGenerator.Models
 {
@@ -26,10 +27,10 @@ namespace GmRdsDocsGenerator.Models
         private ITxComponent _toolChanger;
         public ITxComponent ToolChanger { get => _toolChanger; set => SetProperty(ref _toolChanger, value); }
 
-        private TxObjectList _panels = new TxObjectList();
-        public TxObjectList Panels { get => _panels; set => SetProperty(ref _panels, value); }
+        private TxObjectList _product = new TxObjectList();
+        public TxObjectList Product { get => _product; set => SetProperty(ref _product, value); }
 
-        private TxObjectList _dcsObjects;
+        private TxObjectList _dcsObjects = new TxObjectList();
 
         public TxObjectList DcsObjects
         {
@@ -37,19 +38,49 @@ namespace GmRdsDocsGenerator.Models
             set => SetProperty(ref _dcsObjects, value);
         }
 
-        private TxObjectList _cpcZones;
-        public TxObjectList CpcZones
+        private TxObjectList<TxGroup> _cpcZones = new TxObjectList<TxGroup>();
+        public TxObjectList<TxGroup> CpcZones
         {
             get => _cpcZones;
             set => SetProperty(ref _cpcZones, value);
         }
 
-        private TxObjectList<ITxComponent> _eoatToolChangers;
+        private TxObjectList<ITxComponent> _eoatToolChangers = new TxObjectList<ITxComponent>();
         public TxObjectList<ITxComponent> EoatToolChangers
         {
             get => _eoatToolChangers;
             set => SetProperty(ref _eoatToolChangers, value);
         }
 
+        public ITxObject RestrictedVolume { get; set; }
+
+        private TxObjectList<TxGroup> _cpcSharedZones = new TxObjectList<TxGroup>();
+
+        public TxObjectList<TxGroup> CPCSharedZones
+        {
+            get { return _cpcSharedZones; }
+            set { _cpcSharedZones = value; }
+        }
+        private TxObjectList<TxGroup> _cpcSharedZonesCSC = new TxObjectList<TxGroup>();
+
+        public TxObjectList<TxGroup> CPCSharedZonesCSC
+        {
+            get { return _cpcSharedZonesCSC; }
+            set { _cpcSharedZonesCSC = value; }
+        }
+
+        private TxObjectList<TxGroup> _cpcRestrictedZones = new TxObjectList<TxGroup>();
+        public TxObjectList<TxGroup> CPCRestrictedZones
+        {
+            get { return _cpcRestrictedZones; }
+            set { _cpcRestrictedZones = value; }
+        }
+        private TxObjectList<TxGroup> _cpcRestrictedZonesCSC = new TxObjectList<TxGroup>();
+
+        public TxObjectList<TxGroup> CPCRestrictedZonesCSC
+        {
+            get { return _cpcRestrictedZonesCSC; }
+            set { _cpcRestrictedZonesCSC = value; }
+        }
     }
 }

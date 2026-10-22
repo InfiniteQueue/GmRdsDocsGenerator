@@ -52,36 +52,46 @@ namespace GmRdsDocsGenerator.Models
         public enum ObjCategories
         {
             MainRobotContainers,
+            MainTxRobot,
             MainDcs,
             OtherRobotsContainers,
+            OtherTxRobots,
             EOAT,
             Risers,
             MainRobotToolChanger,
             MainEOATToolChangers,
             Fencing,
-            Product,
-            ToolsSurroundingRobot,
+            MainProduct,
+            OtherRobotProduct,
             CPCSharedZones,
             CPCSharedZonesCSC,
             CPCRestrictedZones,
             CPCRestrictedZonesCSC,
+            RestrictedVolume,
+            Tooling,
         }
 
+        /// <summary> Links categories to their color for screenshots. Value may be null if color should not be overwritten </summary>
         public static Dictionary<ObjCategories, TxColor> CategoryColors => new Dictionary<ObjCategories, TxColor>()
         {
             {ObjCategories.MainRobotContainers, GMColours.Blue },
+            {ObjCategories.MainTxRobot, null },
             {ObjCategories.MainDcs, GMColours.Blue },
-            {ObjCategories.OtherRobotsContainers, GMColours.Gray1 },
+            {ObjCategories.OtherRobotsContainers, null },
+            {ObjCategories.OtherTxRobots, GMColours.Gray1 },
             {ObjCategories.EOAT, GMColours.Red },
             {ObjCategories.Risers, GMColours.Blue },
             {ObjCategories.MainRobotToolChanger, GMColours.Red },
+            {ObjCategories.MainEOATToolChangers, GMColours.Red },
             {ObjCategories.Fencing, GMColours.Yellow },
-            {ObjCategories.Product, GMColours.Blue },
-            {ObjCategories.ToolsSurroundingRobot, GMColours.Black1 },
+            {ObjCategories.MainProduct, GMColours.Blue },
+            {ObjCategories.OtherRobotProduct, GMColours.Blue },
             {ObjCategories.CPCSharedZones, GMColours.Cyan },
             {ObjCategories.CPCSharedZonesCSC, GMColours.Teal },
             {ObjCategories.CPCRestrictedZones, GMColours.Magenta },
             {ObjCategories.CPCRestrictedZonesCSC, GMColours.DarkMagenta },
+            {ObjCategories.RestrictedVolume, null },
+            {ObjCategories.Tooling, GMColours.Black1 },
         };
         void InitNewCategoryCollection(KeyValuePair<ObjCategories, TxColor> item)
         {
@@ -98,7 +108,7 @@ namespace GmRdsDocsGenerator.Models
         /// <summary> Subscribes to CollectionChanged to run automatically when an object is added to a list /// </summary>
         void ColorAddedItems(IList newItems, TxColor newColor)
         {
-            if (newItems == null || newItems.Count == 0) return;
+            if (newColor == null || newItems == null || newItems.Count == 0) return;
             foreach (var item in newItems.OfType<ITxDisplayableObject>()) item.Color = newColor;
         }
 
@@ -108,15 +118,18 @@ namespace GmRdsDocsGenerator.Models
             {
                 foreach(var  item in pair.Value)
                 {
-                    item.Color = CategoryColors[pair.Key];
+                    if (CategoryColors[pair.Key] is TxColor foundColor)
+                        item.Color = foundColor;
                 }
             }
         }
 
         public void ApplyCategoryColor(ObjCategories category)
         {
-            var color = CategoryColors[category];
-            foreach (var item in categoryLists[category]) item.Color = color;        
+            if (CategoryColors[category] is TxColor foundColor)
+            {
+                foreach (var item in categoryLists[category]) item.Color = foundColor;
+            }
         }
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
