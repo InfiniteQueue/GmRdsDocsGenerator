@@ -17,6 +17,7 @@
         <Button Content="Toolchanger" Click="ToolChanger"/>
         <Button Content="Restricted Space Envelope" Click="RestrictedSpaceEnvelope"/>
         <Button Content="CPC Top" Click="CpcTop"/>
+        <Button Content="CPC Iso" Click="CpcIso"/>
 
         <Button Content="Reset" Click="Reset"/>
     </StackPanel>

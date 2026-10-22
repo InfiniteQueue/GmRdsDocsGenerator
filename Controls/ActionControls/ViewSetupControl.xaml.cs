@@ -93,5 +93,13 @@ namespace GmRdsDocsGenerator.Controls.ActionControls
         {
             StateManager.ActiveView = NewSetup<ViewSetupCPCPlan>(StateManager);
         }
+
+        private void CpcIso(object sender, RoutedEventArgs e)
+        {
+
+            var newSetup = NewSetup<ViewSetupCPCAngledIso>(StateManager);
+            newSetup.ClockwiseTurns = 1;
+            StateManager.ActiveView = newSetup;
+        }
     }
 }
