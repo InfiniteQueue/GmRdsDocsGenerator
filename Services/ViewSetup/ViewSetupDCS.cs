@@ -37,11 +37,6 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             }
 
             DisplayAll(viewStateRegistry.Categories[ObjCategories.MainDcs]);
-            TxApplication.RefreshDisplay();
-            graphicViewer.ZoomToFit();
-            TxApplication.RefreshDisplay();
-
-            graphicViewer.ShowContours = true;
 
             var robotContainer = viewStateRegistry.Categories[ObjCategories.MainRobotContainers].FirstOrDefault();
 
@@ -53,6 +48,8 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             }
 
             DisplayAll(viewStateRegistry.Categories[ObjCategories.MainRobotContainers]);
+
+            graphicViewer.ZoomToFit();
 
             //RestoreColor on the robot container above also reverts its riser and tool changer, so reapply their category colours
             //Only the main robot's riser is displayed, as part of its container; other robots' risers stay hidden
