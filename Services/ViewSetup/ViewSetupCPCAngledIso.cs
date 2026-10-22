@@ -26,7 +26,7 @@ namespace GmRdsDocsGenerator.Services.ViewSetup
             var robotContainer = viewStateRegistry.Categories[Models.CategoryRegistry.ObjCategories.MainRobotContainers].FirstOrDefault();
             var robot = ((ITxObjectCollection)robotContainer).GetAllDescendants(new TxTypeFilter(typeof(ITxRobot))).FirstOrDefault() as TxRobot;
 
-            var homePose = (TxPose)robot.PoseList.FirstOrDefault(x => x.Name.ToLower() == "home");
+            var homePose = (TxPose)robot.PoseList.FirstOrDefault(x => x.Name.ToLower() == "start");
             robot.CurrentPose = homePose.PoseData;
 
             OrientCameraIso(viewer, robot);
