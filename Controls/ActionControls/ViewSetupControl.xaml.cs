@@ -73,7 +73,7 @@ namespace GmRdsDocsGenerator.Controls.ActionControls
 
         private void ToolChanger(object sender, RoutedEventArgs e)
         {
-            StateManager.ActiveView = NewSetup<ViewSetupToolchanger>(StateManager);
+            StateManager.ActiveView = NewSetup<ViewSetupToolchangerIso>(StateManager);
         }
 
         private void EOATIndex(object sender, RoutedEventArgs e)

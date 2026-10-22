@@ -9,7 +9,7 @@ using static GmRdsDocsGenerator.Models.CategoryRegistry;
 
 namespace GmRdsDocsGenerator.Services.ViewSetup
 {
-    internal class ViewSetupToolchanger : ViewSetupBase
+    internal class ViewSetupToolchangerIso : ViewSetupBase
     {
         protected override void PerformSetup()
         {
